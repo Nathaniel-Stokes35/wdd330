@@ -196,6 +196,7 @@ button {
   text-align: center;
   color: black;
   font-weight: 700;
+  margin-bottom: 3em;
 }
 
 #category-icons a {
@@ -321,7 +322,7 @@ button {
   border-top: 1px solid #e5e7eb;
   display: flex;
   justify-content: flex-end;
-  /* ⬅️ push content to the right */
+  /* push content to the right */
 }
 
 .cart-footer .totals {
@@ -335,7 +336,7 @@ button {
   font-size: 1.125rem;
   font-weight: 600;
   text-align: right;
-  /* ⬅️ text itself is right-aligned */
+  /* text itself is right-aligned */
   min-width: 180px;
   /* optional: keeps it tidy in a small block */
 }
