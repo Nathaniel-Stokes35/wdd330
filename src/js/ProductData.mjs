@@ -20,7 +20,6 @@ export default class ProductData {
   
   async findProductById(id) {
     const products = await this.getData(this.category);
-    console.log("Searching for id:", id, "in", products);
     return products.find((item) => item.Id === id);
   }
 }

@@ -1,12 +1,13 @@
 import { renderListWithTemplate } from './utils.mjs';
 
 function cartItemTemplate(item) {
+  console.log(item);
   const FinalPrice = Number(item.FinalPrice); // Simple number conversion
   const discountPrice = FinalPrice * 0.1; // 10% of FinalPrice
   const newItem = `<li class='cart-card divider'>
     <a href='#' class='cart-card__image'>
         <img
-        src='${item.Image}'
+        src='${item.Images.PrimaryMedium}'
         alt='${item.Name}'
         />
     </a>

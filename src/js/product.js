@@ -8,7 +8,6 @@ const category = getParam('category');
 const dataSource = new ProductData(category);
 
 const productId = getParam('id');
-console.log(productId);
 const productDetails = new ProductDetails(productId, dataSource);
 
 // console.log(dataSource);
