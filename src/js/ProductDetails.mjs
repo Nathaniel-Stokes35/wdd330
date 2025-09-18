@@ -1,5 +1,4 @@
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
-import { updateCartBadge } from "./product.js";
+import { getLocalStorage, setLocalStorage, updateCartBadge } from "./utils.mjs";
 
 export default class ProductDetails {
     constructor(productId, dataSource) {
@@ -9,7 +8,7 @@ export default class ProductDetails {
     }
     async init() {
         this.product = await this.dataSource.findProductById(this.productId);
-        // console.log(this.product);
+        console.log(this.product);
         this.renderProductDetails();
         document
             .getElementById('addToCart')
@@ -32,7 +31,7 @@ export default class ProductDetails {
 }
 
 function productDetailsTemplate(product) {
-    document.querySelector('h2').textContent = brandName; 
+    document.querySelector('h2').textContent = product.Brand.Name; 
     document.querySelector('h3').textContent = product.NameWithoutBrand; 
    
     const productImage = document.getElementById('productImage'); 

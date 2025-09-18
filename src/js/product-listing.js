@@ -1,7 +1,6 @@
 import ProductData from './ProductData.mjs';
 import ProductList from './ProductList.mjs';
-import { updateCartBadge } from './product.js';
-import { loadHeaderFooter, getParam } from './utils.mjs';
+import { updateCartBadge, loadHeaderFooter, getParam } from './utils.mjs';
 
 loadHeaderFooter();
 

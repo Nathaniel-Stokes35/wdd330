@@ -1,4 +1,3 @@
-import { updateCartBadge } from "./product.js";
 // wrapper for querySelector...returns matching element
 export function qs(selector, parent = document) {
   return parent.querySelector(selector);
@@ -83,4 +82,14 @@ export async function loadHeaderFooter() {
   const footerTemplate = await loadTemplate("../partials/footer.html");
   const footerElement = document.querySelector("#main-foot");
   renderWithTemplate(footerTemplate, footerElement);
+}
+
+export function updateCartBadge() {
+  const cart = getLocalStorage('so-cart') || [];
+  const badge = document.querySelector('.cart-count');
+  //if (!badge) return;
+  badge.textContent = cart.length;
+  // hide when empty, show when > 0
+  if (cart.length > 0) badge.classList.remove('hide');
+  else badge.classList.add('hide');
 }

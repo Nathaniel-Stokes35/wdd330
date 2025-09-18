@@ -1,6 +1,5 @@
-import { getLocalStorage, loadHeaderFooter } from './utils.mjs';
+import { getLocalStorage, loadHeaderFooter, updateCartBadge } from './utils.mjs';
 import ShoppingCart from './ShoppingCart.mjs';
-import { updateCartBadge } from './product.js';
 
 loadHeaderFooter();
 

@@ -4,8 +4,8 @@ function productCardTemplate(product) {
     // matches the structure in /index.html
     const category = getParam('category')
     const id = product?.Id ?? '';
-    const href = `../product_pages/index.html?category=${category}?product=${encodeURIComponent(id)}`;
-    const img = product?.Image ?? '';
+    const href = `../product_pages/index.html?category=${category}?id=${encodeURIComponent(id)}`;
+    const img = product?.Images.PrimaryMedium ?? '';
     const brand = product?.Brand?.Name ?? '';
     const name = product?.NameWithoutBrand ?? product?.Name ?? 'Product';
     const price =
