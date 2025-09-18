@@ -8,10 +8,9 @@ const category = getParam('category');
 const dataSource = new ProductData(category);
 const listElement = document.querySelector('.product-list');
 const mylist = new ProductList(category, dataSource, listElement);
- 
+
 mylist.init();
 
 document.addEventListener('DOMContentLoaded', async () => {
   updateCartBadge();
 });
- 
