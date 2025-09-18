@@ -185,6 +185,35 @@ button {
   color: var(--dark-grey);
 }
 
+#category-icons {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  margin-top: 3em;
+  cursor: pointer;
+}
+
+#category-icons h3 {
+  text-align: center;
+  color: black;
+  font-weight: 700;
+}
+
+#category-icons a {
+  text-decoration: none;
+}
+
+#category-icons svg {
+  width: 15em;
+  height: 15em;
+  padding-bottom: 3em;
+
+}
+
+.icons {
+  width: 90%;
+  height: 100%;
+}
+
 /* Styles for product lists */
 .product-card {
   flex: 1 1 45%;
