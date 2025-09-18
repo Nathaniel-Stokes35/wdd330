@@ -2,7 +2,9 @@ import ProductData from './ProductData.mjs';
 import ProductList from './ProductList.mjs';
 import { updateCartBadge } from './product.js';
 import { loadHeaderFooter, getParam } from './utils.mjs';
- 
+
+loadHeaderFooter();
+
 const category = getParam('category');
 const dataSource = new ProductData(category);
 const listElement = document.querySelector('.product-list');
@@ -13,6 +15,4 @@ mylist.init();
 document.addEventListener('DOMContentLoaded', async () => {
   updateCartBadge();
 });
-
-loadHeaderFooter();
  

@@ -1,9 +1,10 @@
-import { renderListWithTemplate } from './utils.mjs';
+import { renderListWithTemplate, getParam } from './utils.mjs';
 
 function productCardTemplate(product) {
     // matches the structure in /index.html
+    const category = getParam('category')
     const id = product?.Id ?? '';
-    const href = `product_pages/index.html?product=${encodeURIComponent(id)}`;
+    const href = `../product_pages/index.html?category=${category}?product=${encodeURIComponent(id)}`;
     const img = product?.Image ?? '';
     const brand = product?.Brand?.Name ?? '';
     const name = product?.NameWithoutBrand ?? product?.Name ?? 'Product';
@@ -32,20 +33,19 @@ export default class ProductList {
       ? document.querySelector(listElement)
       : listElement;
 
-    this.products = [];
     }
   
     async init() {
-        this.products = await this.dataSource.getData();
-        this.renderList(this.products);
+        const list = await this.dataSource.getData(this.category);
+        this.renderList(list);
     }
     
-  renderList(products) {
+  renderList(list) {
   if (!this.listElement) return;
   renderListWithTemplate(
       productCardTemplate, // your top-level template function
       this.listElement,    // where to render
-      products,            // data
+      list,            // data
       'afterbegin',        // position (default is fine)
       true                 // clear existing content (replaces innerHTML approach)
     );

@@ -32,11 +32,11 @@ export default class ProductDetails {
 }
 
 function productDetailsTemplate(product) {
-    document.querySelector('h2').textContent = product.Brand.Name; 
+    document.querySelector('h2').textContent = brandName; 
     document.querySelector('h3').textContent = product.NameWithoutBrand; 
    
     const productImage = document.getElementById('productImage'); 
-    productImage.src = product.Image; 
+    productImage.src = product.Images.PrimaryMedium; 
     productImage.alt = product.NameWithoutBrand; 
 
     const finalPrice = Number(product.FinalPrice); // Simple number conversion
