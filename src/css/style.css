@@ -292,9 +292,13 @@ button {
   border-radius: 6px;
   min-width: 300px;
   box-shadow: 0 6px 24px rgba(0,0,0,0.15);
+  font-size: var(--large-font);
 }
 .hide {
   display: none !important;
+}
+#removeCount {
+  font-size: var(--large-font);
 }
 
 .cart-card div {

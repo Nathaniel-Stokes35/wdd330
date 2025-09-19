@@ -56,7 +56,7 @@ function showRemoveMessage(product, onChoice) {
   else {
     msg.textContent = `You have ${product.quantity} of ${product.Name}. How many would you like to remove?`;
     opts.innerHTML = `
-      <input id="removeCount" type="number" min="1" max="${product.quantity}" value="1" style="width:70px;">
+      <input id="removeCount" type="number" min="1" max="${product.quantity}" value="1">
       <button id="confirmRemove">Remove</button>
       <button id="removeAll">Remove All</button>
       <button id="cancelRemove">Cancel</button>
