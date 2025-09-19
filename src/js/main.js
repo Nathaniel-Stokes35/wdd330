@@ -5,7 +5,7 @@ async function init() {
 
   // Now the search button exists in the DOM
   const searchInput = document.querySelector('#item-search');
-  const searchButton = document.querySelector('#searchButton');
+  const searchButton = document.querySelector('#search-button');
 
     searchButton.addEventListener('click', () => {
         const term = searchInput.value.trim();

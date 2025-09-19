@@ -7,7 +7,9 @@ export default class ProductDetails {
         this.dataSource = dataSource;
     }
     async init() {
+        console.log(this.dataSource);
         this.product = await this.dataSource.findProductById(this.productId);
+        console.log(this.product);
         this.renderProductDetails();
         document
             .getElementById('addToCart')
@@ -38,6 +40,7 @@ export default class ProductDetails {
 }
 
 function productDetailsTemplate(product) {
+    console.log(product);
     document.querySelector('h2').textContent = product.Brand.Name; 
     document.querySelector('h3').textContent = product.NameWithoutBrand; 
    
