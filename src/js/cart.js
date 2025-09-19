@@ -58,6 +58,7 @@ function showRemoveMessage(product, onChoice) {
     opts.innerHTML = `
       <input id="removeCount" type="number" min="1" max="${product.quantity}" value="1" style="width:70px;">
       <button id="confirmRemove">Remove</button>
+      <button id="removeAll">Remove All</button>
       <button id="cancelRemove">Cancel</button>
     `;
     initialFocus = document.getElementById('removeCount');
@@ -71,6 +72,7 @@ function showRemoveMessage(product, onChoice) {
       cleanup();
       onChoice({ type: 'removeSome', count: val });
     };
+    document.getElementById('removeAll').onclick = () => { cleanup(); onChoice({ type: 'removeAll' }); };
     document.getElementById('cancelRemove').onclick = () => { cleanup(); onChoice({ type: 'cancel' }); };
   }
 
