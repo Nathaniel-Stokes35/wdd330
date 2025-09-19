@@ -16,10 +16,18 @@ export default class ProductDetails {
         updateCartBadge();
     }
     addProductToCart() {
-        const cart = getLocalStorage('so-cart'); // always an array per your utils
-        cart.push(this.product);
+        const cart = getLocalStorage('so-cart') || [];
+        const productId = this.product.Id
+        const existing = cart.find(item => item.Id === productId);
+
+        if (existing) {
+            existing.quantity = (existing.quantity || 1) + 1;
+        } else {
+            this.product.quantity = 1;
+            cart.push(this.product);
+        }
+
         setLocalStorage('so-cart', cart);
-        // Update badge right after cart changes
         updateCartBadge();
     }
 

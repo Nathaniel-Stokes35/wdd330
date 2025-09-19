@@ -10,17 +10,28 @@
 
     <link rel="stylesheet" href="/css/style.css" />
 
+    <script src="../js/main.js" type="module"></script>
     <script src="../js/cart.js" type="module"></script>
   </head>
 
   <body>
     <header class="divider" id="main-head"></header>
 
+    <div id="modalOverlay" class="modal-overlay hide"></div>
+    <div id="removeDialog" class="modal-dialog hide" role="dialog" aria-modal="true" aria-labelledby="dialogTitle">
+      <div id="dialog-content">
+        <h3 id="dialogTitle"></h3>
+        <div id="dialog-message"></div>
+        <div id="dialog-options"></div>
+      </div>
+    </div>
+    
     <main class="divider">
       <section class="products">
         <h2>My Cart</h2>
 
         <ul class="product-list"></ul>
+
         <div class="cart-footer hide" id="cart-footer">
           <div>
             <p class="cart-total">Total: <span id="cart-total">$0.00</span></p>
@@ -35,6 +46,6 @@
       </section>
     </main>
 
-    <footer id="main-foot">&copy;NOT a real business</footer>
+    <footer id="main-foot"></footer>
   </body>
 </html>

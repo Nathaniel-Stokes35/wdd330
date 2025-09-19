@@ -1,25 +1,36 @@
-const baseURL = import.meta.env.VITE_SERVER_URL
+const baseURL = import.meta.env.VITE_SERVER_URL;
 
 function convertToJson(res) {
-  if (res.ok) {
-    return res.json();
-  } else {
-    throw new Error('Bad Response');
-  }
+  if (res.ok) return res.json();
+  throw new Error('Bad Response');
 }
 
 export default class ProductData {
   constructor(category) {
     this.category = category;
   }
-  async getData(category) {
-    const response = await fetch(`${baseURL}products/search/${category} `);
-    const data = await convertToJson(response);
-    return data.Result;
+
+  async getData(category = this.category) {
+    const categoriesToFetch = category
+      ? Array.isArray(category)
+        ? category
+        : [category]
+      : ['backpacks', 'sleeping-bags', 'tents', 'hammocks'];
+
+    const results = [];
+
+    // fetch each category sequentially
+    for (const cat of categoriesToFetch) {
+      const response = await fetch(`${baseURL}products/search/${cat}`);
+      const data = await convertToJson(response);
+      results.push(...data.Result);
+    }
+
+    return results;
   }
-  
+
   async findProductById(id) {
-    const products = await this.getData(this.category);
-    return products.find((item) => item.Id === id);
+    const products = await this.getData();
+    return products.find(item => item.Id === id);
   }
 }
