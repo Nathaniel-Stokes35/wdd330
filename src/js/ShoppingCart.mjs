@@ -1,5 +1,4 @@
 function cartItemTemplate(item) {
-  console.log(item);
   const FinalPrice = Number(item.FinalPrice); 
   const discountPrice = FinalPrice * 0.1; 
   item.quantity = item.quantity || 1; 
@@ -53,7 +52,6 @@ export default class ShoppingCart {
       this.listElement.innerHTML = "<p>Your cart is empty.</p>";
       return;
     }
-    console.log('Render List in Shopping Cart');
     const htmlItems = cart.map((item) => cartItemTemplate(item));
     this.listElement.innerHTML = htmlItems.join("");
   }
