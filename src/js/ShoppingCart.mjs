@@ -1,22 +1,27 @@
-import { renderListWithTemplate } from './utils.mjs';
-
 function cartItemTemplate(item) {
-  console.log(item);
   const FinalPrice = Number(item.FinalPrice); // Simple number conversion
   const discountPrice = FinalPrice * 0.1; // 10% of FinalPrice
   const newItem = `<li class='cart-card divider'>
-    <a href='#' class='cart-card__image'>
-        <img
-        src='${item.Images.PrimaryMedium}'
-        alt='${item.Name}'
-        />
-    </a>
-    <a href='#'>
-        <h2 class='card__name'>${item.Name}</h2>
-    </a>
-    <p class='cart-card__color'>${item.Colors?.[0]?.ColorName ?? ''}</p>
-    <p class='cart-card__quantity'>qty: 1</p>
-    <p class='cart-card__price'>$${FinalPrice.toFixed(2)}<br>Discount 10%: -$${discountPrice.toFixed(2)}</p></li>`;
+    <div>
+      <a href='#' class='cart-card__image'>
+          <img
+          src='${item.Images.PrimaryMedium}'
+          alt='${item.Name}'
+          />
+      </a>
+    </div>
+    <div>
+      <a href='#'>
+          <h2 class='card__name'>${item.Name}</h2>
+      </a>
+      <p class='cart-card__color'>${item.Colors?.[0]?.ColorName ?? ''}</p>
+    </div>
+    <div>
+      <button class='cart-remove' data-id=${item.Id}>X</button>
+      <p class='cart-card__quantity' data-id='${item.Id}'>qty: ${item.quantity}</p>
+      <p class='cart-card__price'>$${FinalPrice.toFixed(2)}<br>Discount 10%: -$${discountPrice.toFixed(2)}</p>
+    </div>
+  </li>`;
 
   return newItem;
 }
@@ -34,8 +39,8 @@ export default class ShoppingCart {
     }
   
     async init() {
-        this.cart = this.dataSource;
-        this.renderList(this.cart);
+      this.cart = this.dataSource;
+      this.renderList(this.cart);
     }
     
   renderList(cart) {

@@ -3,7 +3,6 @@ import { renderListWithTemplate, getParam } from './utils.mjs';
 function productCardTemplate(product) {
     // matches the structure in /index.html
     const category = getParam('category')
-    document.title = `Top Products: ${category}`;
     const id = product?.Id ?? '';
     const href = `../product_pages/index.html?category=${category}&id=${encodeURIComponent(id)}`;
     const img = product?.Images.PrimaryMedium ?? '';
@@ -25,25 +24,35 @@ function productCardTemplate(product) {
 }
 
 export default class ProductList {
-    constructor(category, dataSource, listElement) {
+    constructor(category, dataSource, listElement, query) {
       // You passed in this information to make the class as reusable as possible.
       // Being able to define these things when you use the class will make it very flexible
       this.category = category;
       this.dataSource = dataSource;
+      console.log(dataSource);
       this.listElement = typeof listElement === 'string'
       ? document.querySelector(listElement)
       : listElement;
-
+      this.query = query;
     }
   
     async init() {
-        const list = await this.dataSource.getData(this.category);
-        this.renderList(list);
+      let list = await this.dataSource.getData(this.category);
+      console.log(list);
+      console.log(this.query);
+      if (this.query) {
+        document.title = `Sleep Outside | ${this.query} Search Results`;
+        list = list.filter(item =>
+          item.Name?.toLowerCase().includes(this.query.toLowerCase())
+        );
+      }
+
+      this.renderList(list);
     }
     
   renderList(list) {
-  if (!this.listElement) return;
-  renderListWithTemplate(
+    if (!this.listElement) return;
+    renderListWithTemplate(
       productCardTemplate, // your top-level template function
       this.listElement,    // where to render
       list,            // data

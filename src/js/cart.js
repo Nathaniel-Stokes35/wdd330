@@ -1,16 +1,112 @@
 import {
   getLocalStorage,
-  loadHeaderFooter,
+  setLocalStorage,
   updateCartBadge,
 } from './utils.mjs';
 import ShoppingCart from './ShoppingCart.mjs';
 
-loadHeaderFooter();
-
-const datasource = getLocalStorage('so-cart');
+let datasource = getLocalStorage('so-cart');
 const element = document.querySelector('.product-list');
 const shopCart = new ShoppingCart(datasource, element);
 shopCart.init();
+
+function showRemoveMessage(product, onChoice) {
+  const overlay = document.getElementById('modalOverlay');
+  const dialog = document.getElementById('removeDialog');
+  const dialogTitle = document.getElementById('dialogTitle');
+  const msg = document.getElementById('dialog-message');
+  const opts = document.getElementById('dialog-options');
+
+  opts.innerHTML = '';
+
+  // Prevent background scrolling/interactions
+  document.body.style.overflow = 'hidden';
+  overlay.classList.remove('hide');
+  dialog.classList.remove('hide');
+  dialogTitle.textContent = 'Remove Item';
+  let initialFocus = null;
+
+  // Case 1: only one
+  if (product.quantity === 1) {
+    msg.textContent = `Are you sure you want to remove ${product.Name}?`;
+    opts.innerHTML = `
+      <button id="confirmRemove">Remove</button>
+      <button id="cancelRemove">Cancel</button>
+    `;
+    initialFocus = document.getElementById('confirmRemove');
+    document.getElementById('confirmRemove').onclick = () => { cleanup(); onChoice({ type: 'removeAll' }); };
+    document.getElementById('cancelRemove').onclick = () => { cleanup(); onChoice({ type: 'cancel' }); };
+  }
+
+  // Case 2: exactly 2
+  else if (product.quantity === 2) {
+    msg.textContent = `You have 2 of ${product.Name}. Do you want to remove only one, both, or cancel?`;
+    opts.innerHTML = `
+      <button id="removeOne">Remove One</button>
+      <button id="removeAll">Remove Both</button>
+      <button id="cancelRemove">Cancel</button>
+    `;
+    initialFocus = document.getElementById('removeOne');
+    document.getElementById('removeOne').onclick = () => { cleanup(); onChoice({ type: 'removeOne' }); };
+    document.getElementById('removeAll').onclick = () => { cleanup(); onChoice({ type: 'removeAll' }); };
+    document.getElementById('cancelRemove').onclick = () => { cleanup(); onChoice({ type: 'cancel' }); };
+  }
+
+  // Case 3: more than 2
+  else {
+    msg.textContent = `You have ${product.quantity} of ${product.Name}. How many would you like to remove?`;
+    opts.innerHTML = `
+      <input id="removeCount" type="number" min="1" max="${product.quantity}" value="1">
+      <button id="confirmRemove">Remove</button>
+      <button id="removeAll">Remove All</button>
+      <button id="cancelRemove">Cancel</button>
+    `;
+    initialFocus = document.getElementById('removeCount');
+    const input = document.getElementById('removeCount');
+    document.getElementById('confirmRemove').onclick = () => {
+      const val = parseInt(input.value, 10);
+      if (Number.isNaN(val) || val < 1 || val > product.quantity) {
+        alert(`Please enter a number between 1 and ${product.quantity}`);
+        return;
+      }
+      cleanup();
+      onChoice({ type: 'removeSome', count: val });
+    };
+    document.getElementById('removeAll').onclick = () => { cleanup(); onChoice({ type: 'removeAll' }); };
+    document.getElementById('cancelRemove').onclick = () => { cleanup(); onChoice({ type: 'cancel' }); };
+  }
+
+  setTimeout(() => initialFocus && initialFocus.focus(), 100);
+
+  // Trap focus inside dialog
+  dialog.onkeydown = function(e) {
+    if (e.key === 'Tab') {
+      e.preventDefault();
+      const focusable = dialog.querySelectorAll('button,input');
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey) {
+        if (document.activeElement === first) last.focus();
+        else first.focus();
+      } else {
+        if (document.activeElement === last) first.focus();
+        else last.focus();
+      }
+    }
+    if (e.key === 'Escape') {
+      cleanup(); onChoice({ type:'cancel' });
+    }
+  };
+
+  function cleanup() {
+    overlay.classList.add('hide');
+    dialog.classList.add('hide');
+    document.body.style.overflow = '';
+    opts.innerHTML = '';
+    msg.textContent = '';
+    shopCart.init();
+  }
+}
 
 function updateCartFooter(cart) {
   const footerEl = document.getElementById('cart-footer');
@@ -80,6 +176,35 @@ function formatCurrency(amount) {
     return `$${amount.toFixed(2)}`;
   }
 }
+
+document.addEventListener('click', (e) => {
+  if (e.target.classList.contains('cart-remove')) {
+    const id = e.target.dataset.id;
+    if (!id) return;
+
+    const product = datasource.find(item => item.Id === id);
+    if (!product) return;
+
+    showRemoveMessage(product, (choice) => {
+      if (choice.type === 'removeOne') {
+        product.quantity -= 1;
+      } else if (choice.type === 'removeAll') {
+        datasource = datasource.filter(item => item.Id !== id);
+      } else if (choice.type === 'removeSome') {
+        product.quantity -= choice.count;
+        if (product.quantity <= 0) {
+          datasource = datasource.filter(item => item.Id !== id);
+        }
+      }
+
+      setLocalStorage('so-cart', datasource);
+      const updatedCart = new ShoppingCart(datasource, element);
+      updatedCart.init();
+      updateCartFooter(datasource);
+      updateCartBadge();
+    });
+  }
+});
 
 updateCartFooter(datasource);
 

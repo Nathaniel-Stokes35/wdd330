@@ -1,8 +1,6 @@
 import ProductData from './ProductData.mjs';
 import ProductDetails from './ProductDetails.mjs';
-import { updateCartBadge, loadHeaderFooter, getParam } from './utils.mjs';
-
-loadHeaderFooter();
+import { updateCartBadge, getParam } from './utils.mjs';
 
 const category = getParam('category');
 const dataSource = new ProductData(category);

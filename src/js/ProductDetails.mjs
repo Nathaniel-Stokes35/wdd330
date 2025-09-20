@@ -7,7 +7,9 @@ export default class ProductDetails {
         this.dataSource = dataSource;
     }
     async init() {
+        console.log(this.dataSource);
         this.product = await this.dataSource.findProductById(this.productId);
+        console.log(this.product);
         this.renderProductDetails();
         document
             .getElementById('addToCart')
@@ -16,10 +18,18 @@ export default class ProductDetails {
         updateCartBadge();
     }
     addProductToCart() {
-        const cart = getLocalStorage('so-cart'); // always an array per your utils
-        cart.push(this.product);
+        const cart = getLocalStorage('so-cart') || [];
+        const productId = this.product.Id
+        const existing = cart.find(item => item.Id === productId);
+
+        if (existing) {
+            existing.quantity = (existing.quantity || 1) + 1;
+        } else {
+            this.product.quantity = 1;
+            cart.push(this.product);
+        }
+
         setLocalStorage('so-cart', cart);
-        // Update badge right after cart changes
         updateCartBadge();
     }
 
@@ -30,6 +40,7 @@ export default class ProductDetails {
 }
 
 function productDetailsTemplate(product) {
+    console.log(product);
     document.querySelector('h2').textContent = product.Brand.Name; 
     document.querySelector('h3').textContent = product.NameWithoutBrand; 
    

@@ -87,9 +87,9 @@ export async function loadHeaderFooter() {
 export function updateCartBadge() {
   const cart = getLocalStorage('so-cart') || [];
   const badge = document.querySelector('.cart-count');
-  //if (!badge) return;
-  badge.textContent = cart.length;
-  // hide when empty, show when > 0
-  if (cart.length > 0) badge.classList.remove('hide');
+  // Sum all quantities in the cart array:
+  const totalCount = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+  badge.textContent = totalCount;
+  if (totalCount > 0) badge.classList.remove('hide');
   else badge.classList.add('hide');
 }
