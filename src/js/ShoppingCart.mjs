@@ -1,6 +1,6 @@
 function cartItemTemplate(item) {
   const FinalPrice = Number(item.FinalPrice); 
-  const discountPrice = FinalPrice * 0.1; 
+  const discountPrice = FinalPrice * Number(item.quantity) * 0.1; 
   item.quantity = item.quantity || 1; 
   
   return `
@@ -24,8 +24,8 @@ function cartItemTemplate(item) {
         <button class='quantity-btn increase-quantity' data-id='${item.Id}'>+</button>
       </div>
       <p class='cart-card__price'>
-        $${FinalPrice.toFixed(2)}<br>
-        Discount 10%: -$${discountPrice.toFixed(2)}
+        Total: $${(item.FinalPrice * item.quantity).toFixed(2)}</p>
+        <p class=individual-discount>Discount 10%: -$${discountPrice.toFixed(2)}</p>
       </p>
     </div>
   </li>`;
