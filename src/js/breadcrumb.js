@@ -37,11 +37,14 @@ document.addEventListener('DOMContentLoaded', () => {
   
     if (isDetail) {
       // product detail: show "Category"
-      const category = recallCategory || 'Products';
-
-     if (category) setCrumb(`<span>${category}</span>`);
-     else crumb.style.display = 'none';
-     return;
+      const category =
+        getCategoryFromParam() ||
+        recallCategory() ||
+        getCategoryFromTitle() ||
+        getCategoryFromList();
+    if (category) setCrumb(<span>${category}</span>); 
+    else crumb.style.display = 'none'; 
+    return;
     }
   
     if (isList) {
