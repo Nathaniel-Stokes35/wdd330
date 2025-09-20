@@ -231,9 +231,32 @@ button {
   grid-column: 2;
 }
 
-.cart-card__quantity {
+.cart-card__quantity-controls {
   grid-row: 1;
   grid-column: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cart-card__quantity {
+  margin: 0;
+  padding: 0 0.5rem;
+}
+
+.quantity-btn {
+  padding: 0.2rem 0.5rem;
+  font-size: 1rem;
+  background-color: var(--secondary-color);
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin: 0;
+  display: inline;
+}
+
+.quantity-btn:hover {
+  background-color: var(--tertiary-color);
 }
 
 .cart-card__price {
@@ -260,4 +283,17 @@ button {
 footer {
   font-size: var(--small-font);
   padding: 1em;
+}
+
+/* Cart footer styles */
+.cart-footer {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-top: 2px solid var(--primary-color);
+}
+
+.cart-total {
+  text-align: right;
+  font-weight: bold;
+  font-size: var(--large-font);
 }
