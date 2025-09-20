@@ -29,7 +29,6 @@ export default class ProductList {
       // Being able to define these things when you use the class will make it very flexible
       this.category = category;
       this.dataSource = dataSource;
-      console.log(dataSource);
       this.listElement = typeof listElement === 'string'
       ? document.querySelector(listElement)
       : listElement;
@@ -38,8 +37,6 @@ export default class ProductList {
   
     async init() {
       let list = await this.dataSource.getData(this.category);
-      console.log(list);
-      console.log(this.query);
       if (this.query) {
         document.title = `Sleep Outside | ${this.query} Search Results`;
         list = list.filter(item =>
