@@ -47,7 +47,11 @@ function productDetailsTemplate(product) {
    
     const productImage = document.getElementById('productImage'); 
     productImage.src = product.Images.PrimaryLarge; 
-    productImage.alt = product.NameWithoutBrand; 
+    productImage.srcset = `
+    ${product.Images.PrimaryLarge} 320w,
+    ${product.Images.PrimaryExtraLarge} 600w`;
+    productImage.sizes = "(max-width: 600px) 100vw, 600px";
+    productImage.alt = product.NameWithoutBrand;
 
     const finalPrice = Number(product.FinalPrice); // Simple number conversion
     document.getElementById('productPrice').textContent = '$' + finalPrice.toFixed(2); // Basic formatting
@@ -62,4 +66,3 @@ function productDetailsTemplate(product) {
     // document.getElementById('productDesc').innerHTML = product.DescriptionHtmlSimple; 
     document.getElementById('addToCart').dataset.id = product.Id; 
 }
-  
