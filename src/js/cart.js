@@ -11,6 +11,7 @@ const shopCart = new ShoppingCart(datasource, element);
 shopCart.init();
 
 function showRemoveMessage(product, onChoice) {
+  console.log(product);
   const overlay = document.getElementById('modalOverlay');
   const dialog = document.getElementById('removeDialog');
   const dialogTitle = document.getElementById('dialogTitle');
@@ -178,6 +179,7 @@ function formatCurrency(amount) {
 }
 
 document.addEventListener('click', (e) => {
+  datasource = getLocalStorage('so-cart');
   if (e.target.classList.contains('cart-remove')) {
     const id = e.target.dataset.id;
     if (!id) return;
