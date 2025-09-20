@@ -115,13 +115,22 @@ button {
 }
 
 .search-bar {
-  width: 20vw;
+  width: 100%;
   border: solid 1px #303030;
   border-radius: 50px;
   align-items: center;
   text-align: center;
   margin: 1em;
 }
+
+#desktop-search {
+  display: none;
+}
+
+#mobile-search {
+  display: block;
+}
+
 #item-search {
   width: 75%;
   margin: 0.5em;
@@ -457,6 +466,13 @@ button {
   .cart-card {
     font-size: inherit;
     grid-template-columns: 150px auto 15%;
+  }
+  #desktop-search {
+    display: block;
+  }
+
+  #mobile-search {
+    display: none;
   }
 }
 
