@@ -1,5 +1,3 @@
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
-
 function cartItemTemplate(item) {
   console.log(item);
   const FinalPrice = Number(item.FinalPrice); 
@@ -43,10 +41,6 @@ export default class ShoppingCart {
         : listElement;
 
     this.cart = [];
-
-    // Bind methods so they keep `this`
-    this.increaseQuantity = this.increaseQuantity.bind(this);
-    this.decreaseQuantity = this.decreaseQuantity.bind(this);
   }
 
   async init() {
@@ -59,49 +53,8 @@ export default class ShoppingCart {
       this.listElement.innerHTML = "<p>Your cart is empty.</p>";
       return;
     }
-
+    console.log('Render List in Shopping Cart');
     const htmlItems = cart.map((item) => cartItemTemplate(item));
     this.listElement.innerHTML = htmlItems.join("");
-
-    // Attach handlers (bound in constructor)
-    document
-      .querySelectorAll(".increase-quantity")
-      .forEach((btn) => btn.addEventListener("click", this.increaseQuantity));
-
-    document
-      .querySelectorAll(".decrease-quantity")
-      .forEach((btn) => btn.addEventListener("click", this.decreaseQuantity));
-  }
-
-  increaseQuantity(e) {
-    const productId = e.target.dataset.id;
-    const cartItems = getLocalStorage("so-cart") || [];
-
-    const itemIndex = cartItems.findIndex((item) => item.Id === productId);
-
-    if (itemIndex !== -1) {
-      cartItems[itemIndex].quantity =
-        (cartItems[itemIndex].quantity || 1) + 1;
-
-      setLocalStorage("so-cart", cartItems);
-      this.renderList(cartItems);
-    }
-  }
-
-  decreaseQuantity(e) {
-    const productId = e.target.dataset.id;
-    const cartItems = getLocalStorage("so-cart") || [];
-
-    const itemIndex = cartItems.findIndex((item) => item.Id === productId);
-
-    if (itemIndex !== -1) {
-      cartItems[itemIndex].quantity = Math.max(
-        (cartItems[itemIndex].quantity || 1) - 1,
-        1
-      );
-
-      setLocalStorage("so-cart", cartItems);
-      this.renderList(cartItems);
-    }
   }
 }
