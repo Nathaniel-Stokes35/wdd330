@@ -5,28 +5,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const path = window.location.pathname;
     const params = new URLSearchParams(location.search);
   
-    // Root home only
-    const isHome = /^(?:\/|\/index\.html)$/.test(path);
-  
-    if (isHome) {
-      crumb.style.display = 'none';
-      return;
-    }
-  
     // helpers
-    const getCategoryFromParam = () => params.get('category');
+    const getCategoryFromParam = () => params.get('category')?.charAt(0).toUpperCase() + params.get('category')?.slice(1) || null;
     const getCategoryFromTitle = () => {
-      const h2 = document.querySelector('.products h2');
-      if (!h2) return null;
-      // If you updated the title like "Top Products: Tents"
-      const m = h2.textContent.match(/Top Products:\s*(.+)/i);
-      return (m && m[1]) || h2.dataset.category || null;
+      const h2 = document.querySelector('.product-detail h2');
+      if (!h2) return 'Products';
+
+      const text = h2.textContent.toLowerCase();
+      const keywords = ['backpack', 'tent', 'hammock', 'sleeping bag'];
+
+      // Look for the first keyword in the h2 text
+      const match = keywords.find(word => text.includes(word));
+
+      return match 
+        ? match.charAt(0).toUpperCase() + match.slice(1) 
+        : 'Products';
     };
     const getCategoryFromList = () =>
       document.querySelector('.product-list')?.dataset?.category || null;
   
     const rememberCategory = (cat) => { if (cat) localStorage.setItem('last-category', cat); };
-    const recallCategory = () => localStorage.getItem('last-category');
+    const recallCategory = 'Products';
   
     const setCrumb = (html) => {
       crumb.innerHTML = `<a href="/index.html">Home</a> &gt; ${html}`;
@@ -38,13 +37,9 @@ document.addEventListener('DOMContentLoaded', () => {
   
     if (isDetail) {
       // product detail: show "Category"
-      const category =
-        getCategoryFromParam() ||
-        recallCategory() ||
-        getCategoryFromTitle() ||
-        getCategoryFromList();
+      const category = recallCategory || 'Products';
 
-     if (category) setCrumb(`<span>${toTitle(category)}</span>`);
+     if (category) setCrumb(`<span>${category}</span>`);
      else crumb.style.display = 'none';
      return;
     }
@@ -71,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
       observer.observe(listEl, { childList: true });
   
       update(); // initial
-      return;
+      return 'Products';
     }
   
     // Other pages: hide by default
