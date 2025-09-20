@@ -104,6 +104,7 @@ function showRemoveMessage(product, onChoice) {
     document.body.style.overflow = '';
     opts.innerHTML = '';
     msg.textContent = '';
+    shopCart.init();
   }
 }
 
@@ -197,7 +198,8 @@ document.addEventListener('click', (e) => {
       }
 
       setLocalStorage('so-cart', datasource);
-      shopCart.renderList(datasource);
+      const updatedCart = new ShoppingCart(datasource, element);
+      updatedCart.init();
       updateCartFooter(datasource);
       updateCartBadge();
     });

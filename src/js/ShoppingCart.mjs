@@ -1,5 +1,4 @@
 function cartItemTemplate(item) {
-  console.log(item);
   const FinalPrice = Number(item.FinalPrice); // Simple number conversion
   const discountPrice = FinalPrice * 0.1; // 10% of FinalPrice
   const newItem = `<li class='cart-card divider'>
@@ -40,8 +39,8 @@ export default class ShoppingCart {
     }
   
     async init() {
-        this.cart = this.dataSource;
-        this.renderList(this.cart);
+      this.cart = this.dataSource;
+      this.renderList(this.cart);
     }
     
   renderList(cart) {

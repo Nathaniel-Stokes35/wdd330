@@ -222,9 +222,15 @@ button {
   padding-bottom: 3em;
 }
 
-.icons {
+.icons a {
+  display: flex;
+  flex-direction: column;
   width: 90%;
   height: 100%;
+}
+
+.icons h3 {
+  margin-top: auto;
 }
 
 /* Styles for product lists */
@@ -330,7 +336,15 @@ button {
 }
 
 .cart-remove {
+  margin-top: 1em;
   border-radius: 20%;
+}
+
+#dialog-options {
+  text-align: center;
+}
+#dialog-options button {
+  margin: 1em;
 }
 
 /* Cart count badge */
