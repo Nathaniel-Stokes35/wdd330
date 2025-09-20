@@ -1,4 +1,3 @@
-// /src/js/breadcrumbs.js  (or breadcrumb.js if that's your filename)
 document.addEventListener('DOMContentLoaded', () => {
     const crumb = document.getElementById('breadcrumbs'); // MUST match the HTML id
     if (!crumb) return;
@@ -44,10 +43,10 @@ document.addEventListener('DOMContentLoaded', () => {
         recallCategory() ||
         getCategoryFromTitle() ||
         getCategoryFromList();
-  
-      if (category) setCrumb(`<span>${category}</span>`);
-      else crumb.style.display = 'none';
-      return;
+
+     if (category) setCrumb(`<span>${toTitle(category)}</span>`);
+     else crumb.style.display = 'none';
+     return;
     }
   
     if (isList) {
