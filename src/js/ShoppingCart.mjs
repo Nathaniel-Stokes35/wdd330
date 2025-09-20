@@ -35,7 +35,7 @@ export default class ShoppingCart {
   constructor(dataSource, listElement) {
     this.dataSource = dataSource;
     this.listElement =
-      typeof listElement === "string"
+      typeof listElement === 'string'
         ? document.querySelector(listElement)
         : listElement;
 
@@ -49,10 +49,11 @@ export default class ShoppingCart {
 
   renderList(cart) {
     if (!Array.isArray(cart) || cart.length === 0) {
-      this.listElement.innerHTML = "<p>Your cart is empty.</p>";
+      this.listElement.innerHTML = 
+        '<p>Your cart is empty.</p>';
       return;
     }
     const htmlItems = cart.map((item) => cartItemTemplate(item));
-    this.listElement.innerHTML = htmlItems.join("");
+    this.listElement.innerHTML = htmlItems.join('');
   }
 }
