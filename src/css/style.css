@@ -414,6 +414,13 @@ button {
   grid-column: 3;
 }
 
+.product-detail .discount-flag {
+  color: #e53935;       /* red */
+  font-weight: 700;
+  margin-left: .5rem;   /* space from price */
+  display: inline-block;
+}
+
 .hide {
   display: none !important;
 }
