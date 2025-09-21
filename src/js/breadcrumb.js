@@ -41,15 +41,22 @@ document.addEventListener('DOMContentLoaded', () => {
     };
   
     const isDetail = path.includes('/product_pages/');
+    const isCart = path.includes('/cart/');
     const isList = !!document.querySelector('.product-list');
+
+    if (isCart) {
+      const category = 'Cart';
+      setCrumb(`<span>${category}</span>`);
+      return;
+    };
   
     if (isDetail) {
       // product detail: show "Category"
       const category =
         getCategoryFromParam() ||
+        getCategoryFromList() ||
         recallCategory() ||
         getCategoryFromTitle() ||
-        getCategoryFromList() ||
         'Products';
 
      if (category) setCrumb(`<span>${category}</span>`);
@@ -73,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const count = listEl.querySelectorAll('.product-card').length;
         setCrumb(`<span>${category}</span> &gt; <span>(${count} items)</span>`);
       };
-  
+
       // Products may render async; observe for when cards appear
       const observer = new MutationObserver(update);
       observer.observe(listEl, { childList: true });
@@ -81,6 +88,8 @@ document.addEventListener('DOMContentLoaded', () => {
       update(); // initial
       return;
     }
+
+
   
     // Other pages: hide by default
     crumb.style.display = 'none';
