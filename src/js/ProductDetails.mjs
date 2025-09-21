@@ -27,6 +27,7 @@ export default class ProductDetails {
             cart.push(this.product);
         }
 
+        alert(`${this.product.Name} has been added to your cart.`);
         setLocalStorage('so-cart', cart);
         updateCartBadge();
     }

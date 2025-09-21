@@ -131,6 +131,7 @@ function updateCartFooter(cart) {
   const totalEl = document.getElementById('cart-total');
   const discountEl = document.getElementById('cart-discount');
   const finalEl = document.getElementById('cart-final');
+  datasource = getLocalStorage('so-cart');
 
   // If the footer HTML doesn't exist yet, do nothing (keeps this file safe to include anywhere)
   if (!footerEl || !totalEl || !discountEl || !finalEl) return;
@@ -195,37 +196,79 @@ function formatCurrency(amount) {
   }
 }
 
-document.addEventListener('click', (e) => {
-  if (e.target.classList.contains('cart-remove')) {
-    const id = e.target.dataset.id;
-    if (!id) return;
+element.addEventListener('click', (e) => {
+  // Look for the closest increase button
+  const increaseBtn = e.target.closest('.increase-quantity');
+  if (increaseBtn) {
+    handleIncrease(increaseBtn.dataset.id);
+    return;
+  }
 
+  // Look for the closest decrease button
+  const decreaseBtn = e.target.closest('.decrease-quantity');
+  if (decreaseBtn) {
+    handleDecrease(decreaseBtn.dataset.id);
+    return;
+  }
+
+  // Look for remove button
+  const removeBtn = e.target.closest('.cart-remove');
+  if (removeBtn) {
+    const id = removeBtn.dataset.id;
     const product = datasource.find((item) => item.Id === id);
     if (!product) return;
 
     showRemoveMessage(product, (choice) => {
-      if (choice.type === 'removeOne') {
-        product.quantity -= 1;
-      } else if (choice.type === 'removeAll') {
-        datasource = datasource.filter((item) => item.Id !== id);
-      } else if (choice.type === 'removeSome') {
+      if (choice.type === 'removeOne') product.quantity -= 1;
+      else if (choice.type === 'removeAll')
+        datasource = datasource.filter((i) => i.Id !== id);
+      else if (choice.type === 'removeSome') {
         product.quantity -= choice.count;
-        if (product.quantity <= 0) {
-          datasource = datasource.filter((item) => item.Id !== id);
-        }
+        if (product.quantity <= 0)
+          datasource = datasource.filter((i) => i.Id !== id);
       }
 
       setLocalStorage('so-cart', datasource);
-      const updatedCart = new ShoppingCart(datasource, element);
-      updatedCart.init();
+      shopCart.renderList(datasource);
       updateCartFooter(datasource);
       updateCartBadge();
     });
   }
 });
 
-updateCartFooter(datasource);
+function handleIncrease(productId) {
+  const cartItems = getLocalStorage('so-cart') || [];
+  const item = cartItems.find((i) => i.Id === productId);
+  if (!item) return;
+  item.quantity = (item.quantity || 1) + 1;
+  setLocalStorage('so-cart', cartItems);
+  shopCart.renderList(cartItems);
+  updateCartFooter(cartItems);
+  updateCartBadge();
+}
+
+function handleDecrease(productId) {
+  const cartItems = getLocalStorage('so-cart') || [];
+  const item = cartItems.find((i) => i.Id === productId);
+  if (!item) return;
+  item.quantity = Math.max((item.quantity || 1) - 1, 1);
+  setLocalStorage('so-cart', cartItems);
+  shopCart.renderList(cartItems);
+  updateCartFooter(cartItems);
+  updateCartBadge();
+}
+
+document.getElementById('clear-cart-btn').addEventListener('click', clearCart);
+
+function clearCart() {
+  setLocalStorage('so-cart', []);
+  shopCart.renderList([]);
+  updateCartFooter([]);
+  updateCartBadge();
+}
 
 document.addEventListener('DOMContentLoaded', () => {
+  datasource = getLocalStorage('so-cart') || [];
+  updateCartFooter(datasource);
   updateCartBadge(); // ensure correct on initial load
 });
