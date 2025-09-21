@@ -51,16 +51,11 @@ document.addEventListener('DOMContentLoaded', () => {
     };
   
     if (isDetail) {
-      // product detail: show "Category"
       const category =
-        getCategoryFromParam() ||
-        getCategoryFromList() ||
         recallCategory() ||
-        getCategoryFromTitle() ||
         'Products';
 
-     if (category) setCrumb(`<span>${category}</span>`);
-     else crumb.style.display = 'none';
+     setCrumb(`<span>${category}</span>`);
      return;
     }
   
@@ -76,6 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
           'Products';
   
         rememberCategory(category);
+        console.log(category);
   
         const count = listEl.querySelectorAll('.product-card').length;
         setCrumb(`<span>${category}</span> &gt; <span>(${count} items)</span>`);
