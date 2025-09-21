@@ -17,10 +17,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const getCategoryFromParam = () => params.get('category')?.charAt(0).toUpperCase() + params.get('category')?.slice(1) || null;
     const getCategoryFromTitle = () => {
       const h2 = document.querySelector('.product-detail h2');
-      if (!h2) return "Product";
+      if (!h2) return 'Product';
 
       const text = h2.textContent.toLowerCase();
-      const keywords = ["backpack", "tent", "hammock", "sleeping bag"];
+      const keywords = ['backpack', 'tent', 'hammock', 'sleeping bag'];
 
       // Look for the first keyword in the h2 text
       const match = keywords.find(word => text.includes(word));
