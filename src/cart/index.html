@@ -12,17 +12,16 @@
 
     <script src="../js/main.js" type="module"></script>
     <script src="../js/cart.js" type="module"></script>
+    <script src="../js/breadcrumb.js" type="module"></script>
   </head>
 
   <body>
     <header class="divider" id="main-head"></header>
-
     <div class="search-bar" id="mobile-search">
       <label for="item-search">Search our Outdoor Listings:</label>
       <input id="item-search" type="text" placeholder="Search Products..." />
       <button id="search-button">Search</button>
     </div>
-
     <div id="modalOverlay" class="modal-overlay hide"></div>
     <div
       id="removeDialog"
@@ -37,12 +36,12 @@
         <div id="dialog-options"></div>
       </div>
     </div>
-
+    <nav id="breadcrumbs" class="breadcrumb" aria-label="Breadcrumb"></nav>
     <main class="divider">
       <section class="products">
         <h2>My Cart</h2>
 
-        <ul class="product-list"></ul>
+        <ul class="product-list" data-category="Cart"></ul>
 
         <div class="cart-footer hide" id="cart-footer">
           <div>
