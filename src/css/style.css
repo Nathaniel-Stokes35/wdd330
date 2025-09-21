@@ -415,9 +415,9 @@ button {
 }
 
 .product-detail .discount-flag {
-  color: #e53935;       /* red */
+  color: #e53935; /* red */
   font-weight: 700;
-  margin-left: .5rem;   /* space from price */
+  margin-left: 0.5rem; /* space from price */
   display: inline-block;
 }
 

@@ -55,7 +55,7 @@ function productDetailsTemplate(product) {
     const descEl = document.getElementById('productDesc');
     if (descEl) {
       const discountPrice = finalPrice * 0.10; // 10% of FinalPrice
-      descEl.innerHTML = product.DescriptionHtmlSimple + '<br>10% Discount Price: $' + discountPrice.toFixed(2);
+      descEl.innerHTML = product.DescriptionHtmlSimple + '<br>10% Discount: $' + discountPrice.toFixed(2);
     }
 
     // document.getElementById('productPrice').textContent = product.FinalPrice; 
