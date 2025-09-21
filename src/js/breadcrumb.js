@@ -71,7 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
           'Products';
   
         rememberCategory(category);
-        console.log(category);
   
         const count = listEl.querySelectorAll('.product-card').length;
         setCrumb(`<span>${category}</span> &gt; <span>(${count} items)</span>`);
