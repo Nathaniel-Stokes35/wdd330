@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const crumb = document.getElementById('breadcrumbs'); // MUST match the HTML id
+    const crumb = document.getElementById('breadcrumbs'); 
     if (!crumb) return;
   
     const path = window.location.pathname;
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       return match 
         ? match.charAt(0).toUpperCase() + match.slice(1) 
-        : "Product";
+        : 'Product';
     };
     const getCategoryFromList = () =>
       document.querySelector('.product-list')?.dataset?.category || null;
