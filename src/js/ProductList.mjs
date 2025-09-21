@@ -15,7 +15,14 @@ function productCardTemplate(product) {
   
     return `<li class="product-card">
       <a href="${href}">
-        <img src="${img}" alt="Image of ${name}">
+        <img 
+          src="${product.Images.PrimaryMedium}" 
+          srcset="
+            ${product.Images.PrimarySmall} 80w,
+            ${product.Images.PrimaryMedium} 160w
+          "
+          sizes="(max-width: 600px) 50vw, 160px"
+          alt="Image of ${name}">
         <h2 class="card__brand">${brand}</h2>
         <h3 class="card__name">${name}</h3>
         <p class="product-card__price">${price}</p>
