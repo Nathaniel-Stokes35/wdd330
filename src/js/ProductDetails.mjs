@@ -1,4 +1,4 @@
-import { getLocalStorage, setLocalStorage, updateCartBadge } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage, updateCartBadge } from './utils.mjs';
 
 export default class ProductDetails {
     constructor(productId, dataSource) {
@@ -32,11 +32,65 @@ export default class ProductDetails {
         updateCartBadge();
     }
 
-    
     renderProductDetails() {
         productDetailsTemplate(this.product);
     }
 }
+
+function firstNumber(...candidates) {
+    for (const c of candidates) {
+      const n = Number(c);
+      if (!Number.isNaN(n) && n > 0) return n;
+    }
+    return null;
+  }
+  
+  // Deterministic 10–40% based on product.Id (so it stays stable)
+  function seededPercent(id, min = 10, max = 40) {
+    const s = String(id ?? '');
+    let hash = 0;
+    for (let i = 0; i < s.length; i++) {
+      hash = (hash * 31 + s.charCodeAt(i)) >>> 0;
+    }
+    const span = max - min + 1;
+    return min + (hash % span); // integer in [min, max]
+  }
+  
+  function computeDiscount(product) {
+    const finalPrice = Number(product.FinalPrice);
+  
+    // Try to find a real "compare at" price from common API fields
+    const compareAt = firstNumber(
+      product.SuggestedRetailPrice,
+      product.ListPrice,
+      product.MSRP,
+      product.Price,
+      product?.Colors?.[0]?.Price
+    );
+  
+    let discountPct, comparePrice;
+  
+    if (compareAt && compareAt > finalPrice) {
+      // Compute actual % then clamp to 10–40
+      const rawPct = Math.round(((compareAt - finalPrice) / compareAt) * 100);
+      discountPct = Math.min(40, Math.max(10, rawPct));
+      // If clamped changed it a lot, recompute a consistent compare price for display
+      comparePrice = finalPrice / (1 - discountPct / 100);
+    } else {
+      // No compare-at available → generate deterministic 10–40%
+      discountPct = seededPercent(product.Id, 10, 40);
+      comparePrice = finalPrice / (1 - discountPct / 100);
+    }
+  
+    const saveAmount = comparePrice - finalPrice;
+  
+    return {
+      finalPrice,
+      comparePrice,
+      discountPct,
+      saveAmount,
+    };
+  }
 
 function productDetailsTemplate(product) {
     document.querySelector('h2').textContent = product.Brand.Name; 
@@ -47,19 +101,70 @@ function productDetailsTemplate(product) {
     productImage.srcset = `
     ${product.Images.PrimaryLarge} 320w,
     ${product.Images.PrimaryExtraLarge} 600w`;
-    productImage.sizes = "(max-width: 600px) 100vw, 600px";
+    productImage.sizes = '(max-width: 600px) 100vw, 600px';
     productImage.alt = product.NameWithoutBrand;
 
-    const finalPrice = Number(product.FinalPrice); // Simple number conversion
-    document.getElementById('productPrice').textContent = '$' + finalPrice.toFixed(2); // Basic formatting
-    const descEl = document.getElementById('productDesc');
-    if (descEl) {
-      const discountPrice = finalPrice * 0.10; // 10% of FinalPrice
-      descEl.innerHTML = product.DescriptionHtmlSimple + '<br>10% Discount: $' + discountPrice.toFixed(2);
+    // --- Discount logic & pricing UI ---
+  const { finalPrice, comparePrice, discountPct, saveAmount } = computeDiscount(product);
+
+  // Price row
+  const priceEl = document.getElementById('productPrice');
+  if (priceEl) {
+    priceEl.innerHTML = `
+      <span class="price-final">$${finalPrice.toFixed(2)}</span>
+      <span class="price-compare" aria-label="Original price">$${comparePrice.toFixed(2)}</span>
+    `;
+  }
+
+  // “You save …”
+  const saveEl = document.getElementById('productSave');
+  if (saveEl) {
+    saveEl.textContent = `You save $${saveAmount.toFixed(2)} (${discountPct}% off)`;
+  }
+
+  // --- Discount flag on image ONLY ---
+  const img = document.getElementById('productImage');
+  if (img) {
+    // Ensure a positioned wrapper around the image
+    let wrapper = img.closest('.product-media');
+    if (!wrapper) {
+        wrapper = document.createElement('div');
+        wrapper.className = "product-media";
+        // Insert wrapper before image and move image inside it
+        img.parentElement.insertBefore(wrapper, img);
+        wrapper.appendChild(img);
     }
 
+    // Create/update the flag inside the wrapper
+    let flag = wrapper.querySelector('#discountFlag');
+    if (!flag) {
+        flag = document.createElement('div');
+        flag.id = 'discountFlag';
+        flag.className = 'discount-flag';
+        wrapper.prepend(flag);
+    }
+    flag.textContent = `${discountPct}% OFF`;
+    flag.setAttribute('aria-label', `Discount ${discountPct} percent off`);
+    }
+
+    // Description
+    const descEl = document.getElementById('productDesc');
+    if (descEl) {
+        descEl.innerHTML = product.DescriptionHtmlSimple ?? '';
+    }
+
+    // Color
+    const colorEl = document.getElementById('productColor');
+    if (colorEl) {
+        colorEl.textContent = product?.Colors?.[0]?.ColorName ?? '—';
+    }
+
+    // Ensure addToCart has id
+    const addBtn = document.getElementById('addToCart');
+    if (addBtn) addBtn.dataset.id = product.Id;
+
     // document.getElementById('productPrice').textContent = product.FinalPrice; 
-    document.getElementById('productColor').textContent = product.Colors[0].ColorName; 
+    //document.getElementById('productColor').textContent = product.Colors[0].ColorName; 
     // document.getElementById('productDesc').innerHTML = product.DescriptionHtmlSimple; 
-    document.getElementById('addToCart').dataset.id = product.Id; 
+    //document.getElementById('addToCart').dataset.id = product.Id; 
 }
