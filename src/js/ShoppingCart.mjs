@@ -25,7 +25,7 @@ function cartItemTemplate(item) {
       </div>
       <p class='cart-card__price'>
         Total: $${(item.FinalPrice * item.quantity).toFixed(2)}</p>
-        <p class=individual-discount>Discount 10%: -$${discountPrice.toFixed(2)}</p>
+        <p class=individual-discount>Discount - 10%: -$${discountPrice.toFixed(2)}</p>
       </p>
     </div>
   </li>`;

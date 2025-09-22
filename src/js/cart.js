@@ -259,12 +259,19 @@ function handleDecrease(productId) {
 }
 
 document.getElementById('clear-cart-btn').addEventListener('click', clearCart);
+document.getElementById('checkout-btn').addEventListener('click', checkOutCart);
 
 function clearCart() {
   setLocalStorage('so-cart', []);
   shopCart.renderList([]);
   updateCartFooter([]);
   updateCartBadge();
+}
+
+function checkOutCart() {
+  const finalEle = document.getElementById('cart-final');
+  setLocalStorage('total-price', Number(finalEle.value));
+  window.open('../checkout/index.html');
 }
 
 document.addEventListener('DOMContentLoaded', () => {

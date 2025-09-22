@@ -1,3 +1,1 @@
-import { loadHeaderFooter } from './utils.mjs';
-
-loadHeaderFooter();
+document.getElementById('cart-count').classList.add('hide');
