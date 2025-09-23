@@ -20,17 +20,33 @@ export default class ProductDetails {
         const productId = this.product.Id
         const existing = cart.find(item => item.Id === productId);
 
+        // compute per-unit pricing once here
+        const { finalPrice, comparePrice, discountPct, saveAmount } = computeDiscount(this.product);
+
         if (existing) {
             existing.quantity = (existing.quantity || 1) + 1;
+
+          if (existing._discountPct == null) {
+            existing._discountPct   = discountPct;
+            existing._discountAmount = Number(saveAmount.toFixed(2));
+            existing._finalPrice     = Number(finalPrice.toFixed(2));
+            existing._comparePrice   = Number(comparePrice.toFixed(2));
+          }
         } else {
-            this.product.quantity = 1;
-            cart.push(this.product);
+          // push a shallow clone with the discount metadata
+          const item = { ...this.product };
+          item.quantity        = 1;
+          item._discountPct    = discountPct;
+          item._discountAmount = Number(saveAmount.toFixed(2));
+          item._finalPrice     = Number(finalPrice.toFixed(2));
+          item._comparePrice   = Number(comparePrice.toFixed(2));
+          cart.push(item);
         }
 
-        alert(`${this.product.Name} has been added to your cart.`);
-        setLocalStorage('so-cart', cart);
-        updateCartBadge();
-    }
+          alert(`${this.product.Name} has been added to your cart.`);
+          setLocalStorage('so-cart', cart);
+          updateCartBadge();
+      }
 
     renderProductDetails() {
         productDetailsTemplate(this.product);

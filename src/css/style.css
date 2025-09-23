@@ -494,6 +494,7 @@ button {
 }
 
 .cart-discount,
+.cart-line-discount,
 #cart-discount,
 .individual-discount {
   color: #e53935; /* red */
