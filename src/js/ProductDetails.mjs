@@ -104,6 +104,8 @@ function productDetailsTemplate(product) {
     productImage.sizes = '(max-width: 600px) 100vw, 600px';
     productImage.alt = product.NameWithoutBrand;
 
+  function money(n) { return `$${Number(n).toFixed(2)}`; }
+
     // --- Discount logic & pricing UI ---
   const { finalPrice, comparePrice, discountPct, saveAmount } = computeDiscount(product);
 
@@ -111,10 +113,11 @@ function productDetailsTemplate(product) {
   const priceEl = document.getElementById('productPrice');
   if (priceEl) {
     priceEl.innerHTML = `
-      <span class="price-final">$${finalPrice.toFixed(2)}</span>
-      <span class="price-compare" aria-label="Original price">$${comparePrice.toFixed(2)}</span>
-    `;
-  }
+    <div class="price-compare" aria-label="Original price">${money(comparePrice)}</div>
+    <div class="price-discount" aria-label="Discount amount">Discount ${discountPct}%: -${money(saveAmount)}</div>
+    <div class="price-final" aria-label="New price">${money(finalPrice)}</div>
+  `;
+}
 
   // “You save …”
   const saveEl = document.getElementById('productSave');

@@ -418,9 +418,9 @@ button {
   display: none !important;
 }
 
-.product-media { 
-  position: relative; 
-  display: inline-block; 
+.product-media {
+  position: relative;
+  display: inline-block;
 }
 
 .discount-flag {
@@ -428,28 +428,37 @@ button {
   /*font-weight: 700;
   margin-left: 0.5rem; /* space from price */
   /*display: inline-block;*/
-  position: absolute;           /* parent should be position: relative (e.g., .product-media) */
+  position: absolute; /* parent should be position: relative (e.g., .product-media) */
   top: 0.75rem;
   left: 0.75rem;
   padding: 0.35rem 0.6rem;
   font-weight: 700;
   font-size: 0.9rem;
   border-radius: 0.5rem;
-  background: #e02424;          /* red */
+  background: #e02424; /* red */
   color: #fff;
   pointer-events: none;
-  box-shadow: 0 4px 10px rgba(0,0,0,.15);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 .price-compare {
   text-decoration: line-through;
-  opacity: 0.6;
-  margin-left: 0.5rem;
+  opacity: 0.65;
+  margin-bottom: 0.15rem;
+  display: block;
+}
+
+.price-discount {
+  color: #e02424;
+  font-weight: 700;
+  margin-bottom: 0.15rem;
+  display: block;
 }
 
 .price-final {
-  font-weight: 700;
+  font-weight: 800;
   font-size: 1.2rem;
+  display: block;
 }
 
 .price-save {
