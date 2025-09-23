@@ -137,7 +137,6 @@ function updateCartFooter(cart) {
   const finalEl = document.getElementById('cart-final');
   datasource = getLocalStorage('so-cart');
 
-  // If the footer HTML doesn't exist yet, do nothing (keeps this file safe to include anywhere)
   if (!footerEl || !totalEl || !discountEl || !finalEl) return;
 
   if (!Array.isArray(cart) || cart.length === 0) {
@@ -196,12 +195,6 @@ function formatCurrency(amount) {
   }
 }
 
-/**
- * Derive per-unit pricing.
- * Prefers fields written by Product Details:
- *   _finalPrice (per unit), _discountPct (percent), _comparePrice (optional)
- * Falls back to deriving % from any compare-like price if needed.
- */
 function getUnitPricing(item) {
   const final = coercePrice(
     item?._finalPrice ??
@@ -212,10 +205,10 @@ function getUnitPricing(item) {
       0,
   );
 
-  // Try to use stored percent from PD first
+
   let pct = Number(item?._discountPct);
   if (!Number.isFinite(pct)) {
-    // Fallback: derive from a compare/original price if we can
+    // Fallback: derive from a compare/original price 
     const compareGuess = coercePrice(
       item?._comparePrice ??
         item?.Price ??
@@ -238,9 +231,6 @@ function getUnitPricing(item) {
   return { final, compare, pct, save };
 }
 
-/**
- * Adds/updates "Discount {pct}%: ${lineSave}" under each item after the price.
- */
 function annotateLineDiscounts(cart) {
   if (!element) return;
   cart.forEach((item) => {
