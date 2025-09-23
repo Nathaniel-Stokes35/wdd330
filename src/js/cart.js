@@ -205,10 +205,9 @@ function getUnitPricing(item) {
       0,
   );
 
-
   let pct = Number(item?._discountPct);
   if (!Number.isFinite(pct)) {
-    // Fallback: derive from a compare/original price 
+    // Fallback: derive from a compare/original price
     const compareGuess = coercePrice(
       item?._comparePrice ??
         item?.Price ??
@@ -341,10 +340,10 @@ function clearCart() {
 }
 
 function checkOutCart() {
-  const finalEle = document.getElementById('cart-final');
-  const rawText = finalEle ? finalEle.textContent.replace(/[^0-9.]/g, '') : '0';
-  const total = Number(rawText);
-  setLocalStorage('total-price', total);
+  // const finalEle = document.getElementById('cart-final');
+  // const rawText = finalEle ? finalEle.textContent.replace(/[^0-9.]/g, '') : '0';
+  // const total = Number(rawText);
+  // setLocalStorage('total-price', total);
   setLocalStorage(
     'num-items',
     getLocalStorage('so-cart').reduce(
