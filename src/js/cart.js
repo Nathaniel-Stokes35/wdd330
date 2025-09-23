@@ -270,7 +270,10 @@ function clearCart() {
 
 function checkOutCart() {
   const finalEle = document.getElementById('cart-final');
-  setLocalStorage('total-price', Number(finalEle.value));
+  const rawText = finalEle ? finalEle.textContent.replace('$', '') : '0';
+  const total = Number(rawText);
+  setLocalStorage('total-price', total);
+  setLocalStorage('num-items', getLocalStorage('so-cart').length);
   window.open('../checkout/index.html');
 }
 

@@ -11,8 +11,8 @@
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/form.css" />
     <script src="../js/main.js" type="module"></script>
-    <script src="../js/breadcrumb.js" type="module"></script>
-    <script src="../js/checkout.js" type="module"></script>
+    <script src="../js/breadcrumb.js" type="module" defer></script>
+    <script src="../js/checkout.js" type="module" defer></script>
   </head>
 
   <body>
@@ -24,33 +24,33 @@
     </div>
     <nav id="breadcrumbs" class="breadcrumb" aria-label="Breadcrumb"></nav>
     <main class="divider">
+      <h2>Review & Place your Order</h2>
+      <section id="order-summary" class=""></section>
       <section class="purchase">
-        <h2>Review & Place your Order</h2>
         <form method="get" action="thankyou.html">
-          <div class="form-sect" id="nameplate">
+          <div class="purchase" id="nameplate">
             <h3>Order Info</h3>
             <h4>Cutomer Details</h4>
+            <p>Leave Empty if same as Billing Info</p>
             <label for="first-name"
-              >*First Name:
+              >First Name:
               <input
                 type="text"
-                name="first-name"
+                name="cust-first-name"
                 placeholder="John"
                 id="first-name"
                 autocomplete="given-name"
-                title="First, or given, name of the item recipiant."
-                required /></label
+                title="First, or given, name of the item recipiant." /></label
             ><br />
             <label for="last-name"
-              >*Last Name:
+              >Last Name:
               <input
                 type="text"
-                name="last-name"
+                name="cust-last-name"
                 placeholder="Smith"
                 id="last-name"
                 autocomplete="family-name"
-                title="Last, or family, name of the item recipiant."
-                required /></label
+                title="Last, or family, name of the item recipiant." /></label
             ><br />
             <h4>Billing & Delivary Address</h4>
             <label for="first-name"
@@ -218,7 +218,19 @@
             /></label>
           </div>
         </form>
+        <br>
+        <br>
+        <section class="divider"></section>
+        <section class="cart-footer divider">
+          <div>
+            <h3 class="cart-total" id="sub-tot">Sub-Total: $<span id="sub-value"></span></h3>
+            <h3 class="cart-total" id="tax-tot">Taxes: $<span id="tax-value"></span></h3>
+            <h3 class="cart-total" id="ship-tot">Shipping Estimate: $<span id="ship-value"></span></h3>
+            <h3 class="cart-final" id="fin-tot">Order Total: $<span id="fin-value"></span></h3>
+          </div>
+        </section>
       </section>
+      
     </main>
 
     <footer id="main-foot">&copy;NOT a real business</footer>

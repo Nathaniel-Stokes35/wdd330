@@ -1,13 +1,13 @@
-:root{
-    --bg: #0f172a;            /* page background (slate-900) */
-    --card: #111827;          /* form "card" (gray-900) */
-    --muted: #9ca3af;         /* secondary text */
-    --text: #e5e7eb;          /* primary text */
-    --accent: #22d3ee;        /* cyan-400 */
+/*:root{
+    --bg: #0f172a;        
+    --card: #111827;      
+    --muted: #9ca3af;     
+    --text: #e5e7eb;      
+    --accent: #22d3ee;        
     --accent-ink: #0a0f1f;
-    --ring: #38bdf8;          /* focus ring */
-    --danger: #ef4444;        /* invalid input red */
-    --ok: #10b981;            /* valid input green */
+    --ring: #38bdf8;         
+    --danger: #ef4444;       
+    --ok: #10b981;           
     --radius: 16px;
     --shadow: 0 10px 30px rgba(0,0,0,.35);
     --gap: 1rem;
@@ -17,8 +17,6 @@
   
   /* Page & section */
   body{
-    background: var(--bg);
-    color: var(--text);
     font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     line-height: 1.6;
   }
@@ -31,9 +29,9 @@
     margin-inline: auto;
     max-width: var(--maxw);
     background: linear-gradient(180deg, rgba(255,255,255,.02), transparent 40%) var(--card);
-    border: 1px solid rgba(255,255,255,.06);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
+    border: 1px solid rgba(0,0,0,.06);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.35);
     padding: clamp(1rem, 2.5vw, 2rem);
   }
   
@@ -46,13 +44,12 @@
   .purchase h3{
     font-size: 1.15rem;
     margin: .75rem 0 .25rem;
-    color: var(--text);
   }
   
   .purchase h4{
     font-size: 1rem;
     margin: 1.25rem 0 .5rem;
-    color: var(--muted);
+    color: #404040;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: .06em;
@@ -61,7 +58,7 @@
   /* Form card/sections */
   .form-sect{
     display: grid;
-    gap: var(--gap);
+    gap: 1rem;
     margin-top: .5rem;
   }
   
@@ -70,18 +67,19 @@
     display: grid;
     gap: .4rem;
     font-size: .95rem;
+    font-weight: 500;
   }
   
   label > input,
   #cc-info select,
   #cc-info input,
-  input[type="text"],
+  .purchase input[type="text"],
   input[type="number"],
   select{
     width: 100%;
     appearance: none;
-    background: #0b1224;
-    color: var(--text);
+    background: #525b0f;
+    color: #FFF;
     border: 1px solid rgba(255,255,255,.12);
     border-radius: 12px;
     padding: .85rem 1rem;
@@ -90,7 +88,7 @@
   }
   
   /* Placeholders */
-  ::placeholder{ color: #6b7280; }
+  ::placeholder{ color: #CCC; }
   
   /* Focus states */
   :focus-visible{
@@ -137,15 +135,18 @@
   
   .submit-button{
     cursor: pointer;
-    background: var(--accent);
-    color: var(--accent-ink);
+    background: #8a470c;
+    color: #FFF;
     border: none;
     padding: .9rem 1.25rem;
     font-weight: 700;
     border-radius: 999px;
     letter-spacing: .02em;
     transition: transform .08s ease, filter .2s ease, box-shadow .2s ease;
-    box-shadow: 0 6px 18px rgba(34, 211, 238, .25);
+    box-shadow: 0 6px 18px rgba(194, 92, 3, 0.25);
+    padding: 1.5em;
+    width: 18vw;
+    min-width: 15px;
   }
   .submit-button:hover{ filter: brightness(1.05); }
   .submit-button:active{ transform: translateY(1px) scale(.995); }
