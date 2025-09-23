@@ -6,6 +6,10 @@ const element = document.querySelector('.product-list');
 const shopCart = new ShoppingCart(datasource, element);
 shopCart.init();
 
+const current = getLocalStorage('so-cart') || [];
+annotateLineDiscounts(current);
+updateCartFooter(current);
+
 function showRemoveMessage(product, onChoice) {
   const overlay = document.getElementById('modalOverlay');
   const dialog = document.getElementById('removeDialog');
@@ -133,7 +137,6 @@ function updateCartFooter(cart) {
   const finalEl = document.getElementById('cart-final');
   datasource = getLocalStorage('so-cart');
 
-  // If the footer HTML doesn't exist yet, do nothing (keeps this file safe to include anywhere)
   if (!footerEl || !totalEl || !discountEl || !finalEl) return;
 
   if (!Array.isArray(cart) || cart.length === 0) {
@@ -157,21 +160,17 @@ function updateCartFooter(cart) {
 
 function getCartTotal(cart) {
   return cart.reduce((sum, item) => {
-    const qty = Number(item?.quantity ?? 1);
-    const price = coercePrice(
-      item?.FinalPrice ?? item?.price ?? item?.Price ?? item?.ListPrice,
-    );
-    return sum + price * (Number.isFinite(qty) ? qty : 1);
+    const qty = Number(item?.quantity ?? 1) || 1;
+    const { compare } = getUnitPricing(item);
+    return sum + compare * qty;
   }, 0);
 }
 
 function getCartDiscount(cart) {
   return cart.reduce((sum, item) => {
-    const qty = Number(item?.quantity ?? 1);
-    const price = coercePrice(
-      item?.FinalPrice ?? item?.price ?? item?.Price ?? item?.ListPrice,
-    );
-    return sum + price * 0.1 * (Number.isFinite(qty) ? qty : 1);
+    const qty = Number(item?.quantity ?? 1) || 1;
+    const { save } = getUnitPricing(item);
+    return sum + save * qty;
   }, 0);
 }
 
@@ -190,28 +189,98 @@ function formatCurrency(amount) {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'USD',
-    }).format(amount);
+    }).format(Number(amount));
   } catch {
     return `$${amount.toFixed(2)}`;
   }
 }
 
+function getUnitPricing(item) {
+  const final = coercePrice(
+    item?._finalPrice ??
+      item?.FinalPrice ??
+      item?.price ??
+      item?.Price ??
+      item?.ListPrice ??
+      0,
+  );
+
+
+  let pct = Number(item?._discountPct);
+  if (!Number.isFinite(pct)) {
+    // Fallback: derive from a compare/original price 
+    const compareGuess = coercePrice(
+      item?._comparePrice ??
+        item?.Price ??
+        item?.ListPrice ??
+        item?.MSRP ??
+        item?.SuggestedRetailPrice ??
+        0,
+    );
+    if (compareGuess > final) {
+      pct = Math.round(((compareGuess - final) / compareGuess) * 100);
+    } else {
+      pct = 0;
+    }
+  }
+
+  // Compute compare and save from final and pct
+  const compare = pct > 0 ? final / (1 - pct / 100) : final;
+  const save = Math.max(compare - final, 0);
+
+  return { final, compare, pct, save };
+}
+
+function annotateLineDiscounts(cart) {
+  if (!element) return;
+  cart.forEach((item) => {
+    const row =
+      element.querySelector(`.cart-item[data-id="${item.Id}"]`) ||
+      element.querySelector(`[data-id="${item.Id}"]`);
+    if (!row) return;
+
+    const qty = Number(item?.quantity ?? 1) || 1;
+    const { pct, save } = getUnitPricing(item);
+    const lineSave = save * qty;
+
+    let slot =
+      row.querySelector('.cart-line-discount') ||
+      row.querySelector('.cart-item-discount');
+
+    if (!slot) {
+      const priceNode =
+        row.querySelector('.cart-item-price') ||
+        row.querySelector('.price') ||
+        row.querySelector('p');
+      slot = document.createElement('p');
+      slot.className = 'cart-line-discount';
+      if (priceNode && priceNode.parentElement) {
+        priceNode.parentElement.insertBefore(slot, priceNode.nextSibling);
+      } else {
+        row.appendChild(slot);
+      }
+    }
+
+    slot.textContent = `Discount ${pct}%: -${formatCurrency(lineSave)}`;
+  });
+}
+
 element.addEventListener('click', (e) => {
-  // Look for the closest increase button
+  // increase button
   const increaseBtn = e.target.closest('.increase-quantity');
   if (increaseBtn) {
     handleIncrease(increaseBtn.dataset.id);
     return;
   }
 
-  // Look for the closest decrease button
+  // decrease button
   const decreaseBtn = e.target.closest('.decrease-quantity');
   if (decreaseBtn) {
     handleDecrease(decreaseBtn.dataset.id);
     return;
   }
 
-  // Look for remove button
+  // remove button
   const removeBtn = e.target.closest('.cart-remove');
   if (removeBtn) {
     const id = removeBtn.dataset.id;
@@ -230,6 +299,7 @@ element.addEventListener('click', (e) => {
 
       setLocalStorage('so-cart', datasource);
       shopCart.renderList(datasource);
+      annotateLineDiscounts(datasource);
       updateCartFooter(datasource);
       updateCartBadge();
     });
@@ -243,6 +313,7 @@ function handleIncrease(productId) {
   item.quantity = (item.quantity || 1) + 1;
   setLocalStorage('so-cart', cartItems);
   shopCart.renderList(cartItems);
+  annotateLineDiscounts(cartItems);
   updateCartFooter(cartItems);
   updateCartBadge();
 }
@@ -254,6 +325,7 @@ function handleDecrease(productId) {
   item.quantity = Math.max((item.quantity || 1) - 1, 1);
   setLocalStorage('so-cart', cartItems);
   shopCart.renderList(cartItems);
+  annotateLineDiscounts(cartItems);
   updateCartFooter(cartItems);
   updateCartBadge();
 }
@@ -285,6 +357,7 @@ function checkOutCart() {
 
 document.addEventListener('DOMContentLoaded', () => {
   datasource = getLocalStorage('so-cart') || [];
+  annotateLineDiscounts(datasource);
   updateCartFooter(datasource);
   updateCartBadge(); // ensure correct on initial load
 });
