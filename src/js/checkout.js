@@ -1,4 +1,4 @@
-import { getLocalStorage } from "./utils.mjs";
+import { getLocalStorage } from './utils.mjs';
 
 /* document.getElementById('cart-count').classList.add('hide'); */
 
@@ -12,8 +12,8 @@ const finValue = document.getElementById('fin-value');
 
 document.addEventListener('DOMContentLoaded', () => {
   let tax = totalPrice * 0.06;
-  let ship = (numItems * 2) + 8
-  
+  let ship = numItems * 2 + 8;
+
   subValue.textContent = totalPrice;
   taxValue.textContent = tax.toFixed(2);
   shipValue.textContent = ship.toFixed(2);
