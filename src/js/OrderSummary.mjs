@@ -1,4 +1,4 @@
-function cartItemTemplate(item) {
+function orderItemTemplate(item) {
   const FinalPrice = Number(item.FinalPrice); 
   const discountPrice = FinalPrice * Number(item.quantity) * 0.1; 
   item.quantity = item.quantity || 1; 
@@ -17,12 +17,6 @@ function cartItemTemplate(item) {
       <p class='cart-card__color'>${item.Colors?.[0]?.ColorName ?? ''}</p>
     </div>
     <div>
-      <button class='cart-remove' data-id=${item.Id}>X</button>
-      <div class='cart-card__quantity-controls'>
-        <button class='quantity-btn decrease-quantity' data-id='${item.Id}'>-</button>
-        <p class='cart-card__quantity'>qty: <span class='item-quantity'>${item.quantity}</span></p>
-        <button class='quantity-btn increase-quantity' data-id='${item.Id}'>+</button>
-      </div>
       <p class='cart-card__price'>
         Total: $${(item.FinalPrice * item.quantity).toFixed(2)}</p>
         <p class=individual-discount>Discount - 10%: -$${discountPrice.toFixed(2)}</p>
@@ -53,7 +47,7 @@ export default class ShoppingCart {
         '<p>Your cart is empty.</p>';
       return;
     }
-    const htmlItems = cart.map((item) => cartItemTemplate(item));
+    const htmlItems = cart.map((item) => orderItemTemplate(item));
     this.listElement.innerHTML = htmlItems.join('');
   }
 }
