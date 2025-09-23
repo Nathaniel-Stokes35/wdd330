@@ -35,7 +35,7 @@ body {
 }
 
 main.divider {
-  padding: clamp(1rem, 2vw + 0.5rem, 2.5rem);
+  padding: clamp(1rem, calc(2vw + 0.5rem), 2.5rem);
 }
 
 section.purchase {
@@ -133,7 +133,7 @@ select:required:valid {
 
 /* Zip input tweaks (numbers often show spinners; hide for cleaner UI) */
 input[type='number'] {
-  -moz-appearance: textfield;
+  appearance: textfield;
 }
 input[type='number']::-webkit-outer-spin-button,
 input[type='number']::-webkit-inner-spin-button {
