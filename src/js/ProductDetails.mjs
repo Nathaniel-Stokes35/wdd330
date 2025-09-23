@@ -90,7 +90,6 @@ function firstNumber(...candidates) {
       // Compute actual % then clamp to 10–40
       const rawPct = Math.round(((compareAt - finalPrice) / compareAt) * 100);
       discountPct = Math.min(40, Math.max(10, rawPct));
-      // If clamped changed it a lot, recompute a consistent compare price for display
       comparePrice = finalPrice / (1 - discountPct / 100);
     } else {
       // No compare-at available → generate deterministic 10–40%
@@ -135,7 +134,6 @@ function productDetailsTemplate(product) {
   `;
 }
 
-  // “You save …”
   const saveEl = document.getElementById('productSave');
   if (saveEl) {
     saveEl.textContent = `You save $${saveAmount.toFixed(2)} (${discountPct}% off)`;
@@ -154,7 +152,7 @@ function productDetailsTemplate(product) {
         wrapper.appendChild(img);
     }
 
-    // Create/update the flag inside the wrapper
+    // update the flag inside the wrapper
     let flag = wrapper.querySelector('#discountFlag');
     if (!flag) {
         flag = document.createElement('div');
