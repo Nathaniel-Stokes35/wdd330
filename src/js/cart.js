@@ -331,12 +331,28 @@ function handleDecrease(productId) {
 }
 
 document.getElementById('clear-cart-btn').addEventListener('click', clearCart);
+document.getElementById('checkout-btn').addEventListener('click', checkOutCart);
 
 function clearCart() {
   setLocalStorage('so-cart', []);
   shopCart.renderList([]);
   updateCartFooter([]);
   updateCartBadge();
+}
+
+function checkOutCart() {
+  const finalEle = document.getElementById('cart-final');
+  const rawText = finalEle ? finalEle.textContent.replace(/[^0-9.]/g, '') : '0';
+  const total = Number(rawText);
+  setLocalStorage('total-price', total);
+  setLocalStorage(
+    'num-items',
+    getLocalStorage('so-cart').reduce(
+      (sum, item) => sum + (item.quantity || 1),
+      0,
+    ),
+  );
+  window.open('../checkout/index.html');
 }
 
 document.addEventListener('DOMContentLoaded', () => {

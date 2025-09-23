@@ -484,6 +484,10 @@ button {
   gap: 0.25rem;
 }
 
+.cart-footer button {
+  margin: 1em;
+}
+
 .cart-total {
   font-size: 1.125rem;
   font-weight: 600;

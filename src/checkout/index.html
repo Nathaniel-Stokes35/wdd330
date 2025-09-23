@@ -8,10 +8,11 @@
 
     <title>Sleep Outside | Checkout</title>
 
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/form.css" />
     <script src="../js/main.js" type="module"></script>
-    <script src="../js/breadcrumb.js" type="module"></script>
-    <script src="../js/checkout.js" type="module"></script>
+    <script src="../js/breadcrumb.js" type="module" defer></script>
+    <script src="../js/checkout.js" type="module" defer></script>
   </head>
 
   <body>
@@ -23,8 +24,219 @@
     </div>
     <nav id="breadcrumbs" class="breadcrumb" aria-label="Breadcrumb"></nav>
     <main class="divider">
-      <section class="products">
-        <h2>Review & Place your Order</h2>
+      <h2>Review & Place your Order</h2>
+      <section id="order-summary" class=""></section>
+      <section class="purchase">
+        <form method="get" action="thankyou.html">
+          <div class="purchase" id="nameplate">
+            <h3>Order Info</h3>
+            <h4>Cutomer Details</h4>
+            <p>Leave Empty if same as Billing Info</p>
+            <label for="first-name"
+              >First Name:
+              <input
+                type="text"
+                name="cust-first-name"
+                placeholder="John"
+                id="first-name"
+                autocomplete="given-name"
+                title="First, or given, name of the item recipiant." /></label
+            ><br />
+            <label for="last-name"
+              >Last Name:
+              <input
+                type="text"
+                name="cust-last-name"
+                placeholder="Smith"
+                id="last-name"
+                autocomplete="family-name"
+                title="Last, or family, name of the item recipiant." /></label
+            ><br />
+            <h4>Billing & Delivary Address</h4>
+            <label for="first-name"
+              >*First Name:
+              <input
+                type="text"
+                name="first-name"
+                placeholder="John"
+                id="first-name"
+                autocomplete="given-name"
+                title="First, or given, name of the item recipiant."
+                required /></label
+            ><br />
+            <label for="last-name"
+              >*Last Name:
+              <input
+                type="text"
+                name="last-name"
+                placeholder="Smith"
+                id="last-name"
+                autocomplete="family-name"
+                title="Last, or family, name of the item recipiant."
+                required /></label
+            ><br />
+            <label for="street-add"
+              >*Street Address:
+              <input
+                type="text"
+                name="street-add"
+                placeholder="123 Oak st"
+                id="street-add"
+                autocomplete="address-level1"
+                title="Name of the Street Address for delivary."
+                required /></label
+            ><br />
+            <label for="city-add"
+              >*City:
+              <input
+                type="text"
+                name="city-add"
+                placeholder="Miami"
+                id="city-add"
+                autocomplete="address-level2"
+                title="Name of the city for delivary."
+                required /></label
+            ><br />
+            <label for="state-add"
+              >*State:
+              <input
+                type="text"
+                name="state-add"
+                placeholder="Missouri"
+                id="state-add"
+                autocomplete="address-level3"
+                title="Name of the State for delivary."
+                required /></label
+            ><br />
+            <label for="zip-add"
+              >*Zipcode:
+              <input
+                type="number"
+                name="zip-add"
+                placeholder="12345 or 12345-6789"
+                id="zip-add"
+                autocomplete="postal-code"
+                title="Zipcode for delivary."
+                pattern="\d{5}(-\d{4})?"
+                required /></label
+            ><br />
+            <h4>Payment</h4>
+            <label for="first-name"
+              >*First Name:
+              <input
+                type="text"
+                name="first-name"
+                placeholder="John"
+                id="first-name"
+                autocomplete="given-name"
+                title="First, or given, name of the item recipiant."
+                required /></label
+            ><br />
+            <label for="last-name"
+              >*Last Name:
+              <input
+                type="text"
+                name="last-name"
+                placeholder="Smith"
+                id="last-name"
+                autocomplete="family-name"
+                title="Last, or family, name of the item recipiant."
+                required /></label
+            ><br />
+            <label for="credit-card"
+              >*Credit Card:
+              <input
+                type="text"
+                autocomplete="cc-number"
+                pattern="\d{13,16}"
+                placeholder="1234 5678 9012 3456"
+                title="Credit Card Number"
+                id="credit-card"
+                required /></label
+            ><br />
+            <div id="cc-info">
+              <select
+                name="exp-month"
+                autocomplete="cc-exp-month"
+                title="Credit Card Expiration Two-Digit Month"
+                required
+              >
+                <option value="">Month</option>
+                <option value="01">01</option>
+                <option value="02">02</option>
+                <option value="03">03</option>
+                <option value="04">04</option>
+                <option value="05">05</option>
+                <option value="06">06</option>
+                <option value="07">07</option>
+                <option value="08">08</option>
+                <option value="09">09</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+              </select>
+              <select
+                name="exp-year"
+                autocomplete="cc-exp-year"
+                title="Credit Card Expiration Two-Digit Year"
+                required
+              >
+                <option value="">Year</option>
+                <option value="25">25</option>
+                <option value="26">26</option>
+                <option value="26">27</option>
+                <option value="26">28</option>
+                <option value="26">29</option>
+                <option value="26">30</option>
+                <option value="26">31</option>
+                <option value="26">32</option>
+                <option value="26">33</option>
+                <option value="26">34</option>
+                <option value="35">35</option>
+              </select>
+              <input
+                type="text"
+                name="cvc"
+                autocomplete="cc-csc"
+                pattern="\d{3,4}"
+                maxlength="4"
+                placeholder="123"
+                title="CVC for Credit Card"
+                required
+              />
+            </div>
+            <input type="hidden" name="submittedDate" value="" />
+          </div>
+          <br />
+          <div id="submit-div">
+            <label id="submit"
+              ><input
+                type="submit"
+                name="info-submit"
+                value="Buy Now"
+                class="submit-button"
+            /></label>
+          </div>
+        </form>
+        <br />
+        <br />
+        <section class="divider"></section>
+        <section class="cart-footer divider">
+          <div>
+            <h3 class="cart-total" id="sub-tot">
+              Sub-Total: $<span id="sub-value"></span>
+            </h3>
+            <h3 class="cart-total" id="tax-tot">
+              Taxes: $<span id="tax-value"></span>
+            </h3>
+            <h3 class="cart-total" id="ship-tot">
+              Shipping Estimate: $<span id="ship-value"></span>
+            </h3>
+            <h3 class="cart-final" id="fin-tot">
+              Order Total: $<span id="fin-value"></span>
+            </h3>
+          </div>
+        </section>
       </section>
     </main>
 
