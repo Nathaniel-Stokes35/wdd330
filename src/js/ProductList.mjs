@@ -51,6 +51,11 @@ export default class ProductList {
         );
       }
 
+      const sortSelect = document.getElementById('sort');
+      if (sortSelect) {
+        sortSelect.addEventListener('change', () => this.sortAndRender(list));
+      }
+
       this.renderList(list);
     }
     
@@ -63,5 +68,28 @@ export default class ProductList {
       'afterbegin',        // position (default is fine)
       true                 // clear existing content (replaces innerHTML approach)
     );
+  }
+
+  //Sorting Function
+  sortAndRender(list) {
+  const sortSelect = document.getElementById('sort');
+  let sortedList = [...list]; // Create a copy to avoid mutating the original
+
+  if (sortSelect) {
+    const sortValue = sortSelect.value;
+    switch (sortValue) {
+      case 'price-asc':
+        sortedList.sort((a, b) => (a.FinalPrice ?? 0) - (b.FinalPrice ?? 0));
+        break;
+      case 'price-desc':
+        sortedList.sort((a, b) => (b.FinalPrice ?? 0) - (a.FinalPrice ?? 0));
+        break;
+      case 'name-asc':
+        sortedList.sort((a, b) => (a.Name ?? '').localeCompare(b.Name ?? ''));
+        break;
+    }
+  }
+
+  this.renderList(sortedList);
   }
 }
