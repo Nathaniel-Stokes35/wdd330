@@ -205,10 +205,9 @@ function getUnitPricing(item) {
       0,
   );
 
-
   let pct = Number(item?._discountPct);
   if (!Number.isFinite(pct)) {
-    // Fallback: derive from a compare/original price 
+    // Fallback: derive from a compare/original price
     const compareGuess = coercePrice(
       item?._comparePrice ??
         item?.Price ??
@@ -351,7 +350,7 @@ function checkOutCart() {
       (sum, item) => sum + (item.quantity || 1),
       0,
     ),
-  ); 
+  );
   window.open('../checkout/index.html');
 }
 
