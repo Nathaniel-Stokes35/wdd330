@@ -341,17 +341,17 @@ function clearCart() {
 }
 
 function checkOutCart() {
-  const finalEle = document.getElementById('cart-final');
-  const rawText = finalEle ? finalEle.textContent.replace(/[^0-9.]/g, '') : '0';
-  const total = Number(rawText);
-  setLocalStorage('total-price', total);
+  // const finalEle = document.getElementById('cart-final');
+  // const rawText = finalEle ? finalEle.textContent.replace(/[^0-9.]/g, '') : '0';
+  // const total = Number(rawText);
+  // setLocalStorage('total-price', total);
   setLocalStorage(
     'num-items',
     getLocalStorage('so-cart').reduce(
       (sum, item) => sum + (item.quantity || 1),
       0,
     ),
-  );
+  ); 
   window.open('../checkout/index.html');
 }
 
