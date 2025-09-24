@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const name = formData.get('name');
     const email = formData.get('email');
     const phone = formData.get('phone');
-    console.log('Registration data:', { name, email, phone });
 
     form.classList.add('hidden');
 
