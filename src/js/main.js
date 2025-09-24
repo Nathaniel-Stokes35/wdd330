@@ -56,7 +56,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     setTimeout(showModal, 2000);
 
-    setLocalStorage(visitedKey, 'true');
+    setLocalStorage('hasVisitedBefore', 'true');
   }
 
   if (modalOverlay && closeModalBtn) {
