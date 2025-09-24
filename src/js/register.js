@@ -6,9 +6,9 @@ document.addEventListener('DOMContentLoaded', () => {
     event.preventDefault();
 
     const formData = new FormData(form);
-    const name = formData.get('name');
-    const email = formData.get('email');
-    const phone = formData.get('phone');
+    formData.get('name');
+    formData.get('email');
+    formData.get('phone');
 
     form.classList.add('hidden');
 
