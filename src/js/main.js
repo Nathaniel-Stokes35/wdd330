@@ -49,7 +49,6 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-
   // Checks if the 'hasVisitedBefore' key DOES NOT exist in localStorage
   if (!visitedKey) {
     // If it doesn't exist, it's the first visit.
