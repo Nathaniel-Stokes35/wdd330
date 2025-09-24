@@ -53,7 +53,7 @@ window.addEventListener('DOMContentLoaded', () => {
   if (!visitedKey) {
     // If it doesn't exist, it's the first visit.
 
-    setTimeout(showModal, 500);
+    setTimeout(showModal, 300);
 
     setLocalStorage('hasVisitedBefore', 'true');
   }
