@@ -1,6 +1,4 @@
-
 document.addEventListener('DOMContentLoaded', () => {
-
   const form = document.getElementById('registration-form');
   const successMessage = document.getElementById('success-message');
 
@@ -13,7 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const phone = formData.get('phone');
 
     form.classList.add('hidden');
-
 
     successMessage.classList.remove('hidden');
   });

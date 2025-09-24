@@ -1,7 +1,6 @@
 /* Import default font for consistency (optional) */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
-
 body {
   font-family: 'Roboto', sans-serif;
   background-color: #f4f4f4;
@@ -20,7 +19,6 @@ main {
   padding: 2rem;
 }
 
-
 .form-container {
   background-color: white;
   padding: 2.5rem;
@@ -34,7 +32,7 @@ main {
 .form-container h2 {
   margin-top: 0;
   margin-bottom: 0.5rem;
-  color: #2c5d43; 
+  color: #2c5d43;
 }
 
 .form-container p {
@@ -68,7 +66,6 @@ main {
   box-shadow: 0 0 5px rgba(92, 148, 110, 0.5);
 }
 
-
 .submit-btn {
   width: 100%;
   padding: 1rem;
@@ -86,7 +83,6 @@ main {
   background-color: #4a7858;
 }
 
-
 #success-message {
   color: #2c5d43;
 }
@@ -94,7 +90,6 @@ main {
 #success-message h2 {
   margin-bottom: 1rem;
 }
-
 
 .hidden {
   display: none;
