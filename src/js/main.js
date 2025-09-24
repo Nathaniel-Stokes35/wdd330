@@ -1,4 +1,5 @@
 import { loadHeaderFooter } from './utils.mjs';
+import { getLocalStorage, setLocalStorage } from './utils.mjs';
 
 async function init() {
   await loadHeaderFooter(); // wait for header/footer to load
@@ -34,7 +35,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const closeModalBtn = document.getElementById('close-modal-btn');
 
   // Define a unique key to use in localStorage
-  const visitedKey = 'hasVisitedBefore';
+  const visitedKey = getLocalStorage('hasVisitedBefore');
 
   function showModal() {
     if (modalOverlay) {
@@ -48,8 +49,9 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+
   // Checks if the 'hasVisitedBefore' key DOES NOT exist in localStorage
-  if (!localStorage.getItem(visitedKey)) {
+  if (!visitedKey) {
     // If it doesn't exist, it's the first visit.
 
     setTimeout(showModal, 2000);
