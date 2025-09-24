@@ -28,9 +28,7 @@ init();
 
 // Logic for the Welcome Modal for the first visit
 
-
 window.addEventListener('DOMContentLoaded', () => {
-
   // Select modal elements in HTML
   const modalOverlay = document.getElementById('welcome-modal-overlay');
   const closeModalBtn = document.getElementById('close-modal-btn');
@@ -38,36 +36,31 @@ window.addEventListener('DOMContentLoaded', () => {
   // Define a unique key to use in localStorage
   const visitedKey = 'hasVisitedBefore';
 
-  
   function showModal() {
-    
-    if(modalOverlay) {
-        modalOverlay.style.display = 'flex';
+    if (modalOverlay) {
+      modalOverlay.style.display = 'flex';
     }
   }
 
-  
   function hideModal() {
-    if(modalOverlay) {
-        modalOverlay.style.display = 'none';
+    if (modalOverlay) {
+      modalOverlay.style.display = 'none';
     }
   }
 
- // Checks if the 'hasVisitedBefore' key DOES NOT exist in localStorage
+  // Checks if the 'hasVisitedBefore' key DOES NOT exist in localStorage
   if (!localStorage.getItem(visitedKey)) {
     // If it doesn't exist, it's the first visit.
 
     setTimeout(showModal, 2000);
-  
+
     localStorage.setItem(visitedKey, 'true');
   }
 
-  if(modalOverlay && closeModalBtn) {
-    
+  if (modalOverlay && closeModalBtn) {
     closeModalBtn.addEventListener('click', hideModal);
-   
+
     modalOverlay.addEventListener('click', (event) => {
-      
       if (event.target === modalOverlay) {
         hideModal();
       }
