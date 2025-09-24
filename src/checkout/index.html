@@ -8,61 +8,238 @@
 
     <title>Sleep Outside | Checkout</title>
 
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/form.css" />
+    <script src="../js/main.js" type="module"></script>
+    <script src="../js/breadcrumb.js" type="module" defer></script>
+    <script src="../js/checkout.js" type="module" defer></script>
   </head>
 
   <body>
-    <header class="divider">
-      <div class="logo">
-        <img src="images/noun_Tent_2517.svg" alt="tent image for logo" />
-
-        <a href="index.html">
-          Sleep
-          <span class="highlight">Outside</span>
-        </a>
-      </div>
-
-      <div class="cart">
-        <a href="cart/">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-            <path
-              d="M18.9 32.6c1.1 2.4 2.5 3.3 5.4 3.3 1.6 0 3.6-0.3 5.9-0.6 3.2-0.5 6.9-1 11.2-1 2.1 0 4.3 0.1 6.4 0.3 2.1 0.1 4.2 0.3 6.1 0.3 3.2 0 5.2-0.4 5.9-1.2 2.7-2.7 2.8-8.8 2.9-14.6 0.1-6.7 0.2-14.5 4.6-18.7 -0.5 0-1 0-1.6 0 -14.2 0-37.5 0-41.1 0C15.6 6.2 14.9 23.6 18.9 32.6z"
-            />
-
-            <path
-              d="M90.1 29.7c1-3.3 1.5-7.3 1.5-11.2 0-9-2.7-18.8-8.6-18.8 -0.1 0-0.2 0-0.3 0L77.8-0.1c-0.3 0.2-0.8 0.3-1.1 0.4 0 0 0 0 0 0 -0.2 0-0.3 0-0.4 0 -4.5 0.1-7 1.8-8.4 4.9l8.9-0.1c-1.6 3.6-2.4 8.7-2.4 13.5 0 4.9 0.8 9.9 2.5 13.6l-12.3 0c-0.2 0.4-0.4 0.8-0.6 1.2 -0.2 0.4-0.4 0.7-0.6 1.1 -0.1 0.1-0.1 0.2-0.2 0.3 -0.3 0.4-0.5 0.7-0.9 1.1 0 0 0 0 0 0 0 0-0.1 0.1-0.1 0.1 -0.1 0.1-0.2 0.2-0.4 0.3 -0.2 0.1-0.4 0.3-0.6 0.4 0 0 0 0 0 0 -0.4 0.2-0.9 0.4-1.4 0.6 -1.3 0.4-2.9 0.6-4.9 0.7 -0.5 1.5-1.1 4.1 0 5.5l3.1 3.9 0 0.8c0 2.8-2.3 4.8-2.8 5.2l-3-3.8c0.3-0.2 0.5-0.5 0.7-0.8l-1.8-2.3c-2.2-2.7-1.8-6.3-1.2-8.7 -0.7 0-1.4-0.1-2-0.1 -2.1-0.1-4.3-0.3-6.2-0.3 -4.1 0-7.7 0.5-10.8 1 -1 0.2-2 0.3-3 0.4 -0.5 1.5-1.2 4.4-0.1 5.9l3.1 4 0 0.8c0 2.8-2.3 4.8-2.8 5.2l-3.1-3.8c0.3-0.2 0.6-0.6 0.7-0.9l-1.8-2.4c-2.1-2.8-1.8-6.3-1.2-8.7 -1.6-0.2-2.9-0.8-4-1.7h0c-0.8-0.6-1.4-1.4-2-2.4 -0.1-0.1-0.2-0.3-0.2-0.5 -0.1-0.2-0.2-0.4-0.3-0.6 -0.3-0.6-0.5-1.2-0.7-1.8l-5.6 0c-1-0.3-3.5-4.8-3.5-13.2 0-8.1 3.7-13.1 4.9-13.2L16.4 5.6c0.9-1.9 2-3.7 3.4-5.2L11.2 0.5c-5.4 0-10.1 8.6-10.1 18.4 0 8.9 2.7 18.4 8.6 18.4h2.4c-1.8 10.7-6.6 43 0.4 56.5 0.7 1.4 4.3 3.4 12.2 4.6 20.2 3.1 49.8-0.5 54.6-5.3 0.7-0.7 1.3-1.7 1.8-2.9 2-0.3 8.2-1.7 12.4-8.4C100.1 71.5 98.9 53.9 90.1 29.7zM35.6 87.1c-2.6 2-10.5 2.1-12.1 2.1 0 0 0 0 0 0 -3.9 0-9-0.4-10.8-2.3 -2.6-2.7-1.5-13-0.6-19.1 -0.1-1.9 0-5.8 2.2-7.2 1.9-1.2 8.7-1.3 11.6-1.3 6.4 0 7.4 0.6 7.8 0.9 3 1.8 3.1 5.6 2.6 7.8C37.7 75.5 38.6 84.8 35.6 87.1zM70.1 87.5c-2.6 2-10.5 2.1-12.1 2.1 0 0 0 0 0 0 -3.9 0-9-0.4-10.8-2.3 -2.6-2.7-1.5-13-0.6-19.1 -0.1-1.9 0-5.8 2.2-7.2 1.9-1.2 8.7-1.3 11.6-1.3 6.4 0 7.4 0.6 7.8 0.9 3 1.8 3.1 5.6 2.6 7.8C72.2 76 73.1 85.3 70.1 87.5zM85.9 12.3c-0.6-1.3-1.3-2.2-1.9-2.5 -0.5-0.3-1-0.3-1.4 0 -1.7 1.1-3.2 12.2-0.6 17.9 0.4 0.9 0.9 1.1 1.3 1.1 0.1 0 0.2 0 0.3 0 1.8-0.5 2.1-6.2 1.7-8.6l-1.6 0.2c0.3 2.2 0 5.1-0.4 6.3 -2.1-5.3-0.8-14.1 0.1-15.5 0.8 0.6 2.2 3.5 3.1 8 -0.1 7.9-2.4 12.3-3.4 12.8 -1-0.5-3.4-5.2-3.4-13.5 0-8.3 2.4-13 3.4-13.5C83.7 5.4 85.1 7.9 85.9 12.3zM87.3 77.7c-1.4 2.3-3.1 3.6-4.6 4.3 1.2-12.2-1-31-3.5-44.7h3.3c0.1 0 0.3 0 0.4 0 0.6 0 1.2-0.1 1.8-0.4C92.8 60.7 90.7 72.2 87.3 77.7z"
-            />
-
-            <path
-              d="M24.7 71v5h-5.2v-5.4c-1.4-0.3-2.7-0.6-3.7-0.9 -0.9 6.8-1.1 13.3-0.3 14.5 0.4 0.3 2.9 1.1 8 1.1h0c5 0 8.8-0.7 9.7-1.3 0.8-1.3 0.6-7.7-0.4-14.4C30.7 70.1 27.5 70.8 24.7 71z"
-            />
-
-            <path
-              d="M58.8 68.9c2.9-0.1 6.4-0.9 8.3-1.4 0.1-0.8 0.3-2.8-0.7-3.5 -0.5-0.2-2.5-0.4-5.9-0.4 -4.9 0-8.6 0.4-9.5 0.7 -0.3 0.5-0.5 1.9-0.5 3.3C52.5 68.1 56 69 58.8 68.9z"
-            />
-
-            <path
-              d="M24.3 68.4c2.9-0.1 6.4-0.9 8.3-1.4 0.1-0.8 0.3-2.8-0.7-3.5 -0.5-0.2-2.5-0.4-5.9-0.4 -4.9 0-8.6 0.4-9.5 0.7 -0.3 0.5-0.5 1.9-0.5 3.3C18 67.7 21.5 68.6 24.3 68.4z"
-            />
-
-            <path
-              d="M60.1 71.4v3.3h-5.2v-3.4c-1.7-0.3-3.3-0.7-4.6-1 -0.9 6.8-1.1 13.3-0.3 14.5 0.4 0.3 2.9 1.1 8 1.1h0c5 0 8.8-0.7 9.7-1.3 0.8-1.3 0.6-7.7-0.4-14.4C65.5 70.5 62.7 71.1 60.1 71.4z"
-            />
-
-            <!-- <text x="0" y="115" fill="#000000" font-size="5px" font-weight="bold" font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif">Created by Natalia Woodroffe</text>
-            <text x="0" y="120" fill="#000000" font-size="5px" font-weight="bold" font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif">from the Noun Project</text> -->
-          </svg>
-        </a>
-      </div>
-    </header>
-
+    <header class="divider" id="main-head"></header>
+    <div class="search-bar" id="mobile-search">
+      <label for="item-search">Search our Outdoor Listings:</label>
+      <input id="item-search" type="text" placeholder="Search Products..." />
+      <button id="search-button">Search</button>
+    </div>
+    <nav id="breadcrumbs" class="breadcrumb" aria-label="Breadcrumb"></nav>
     <main class="divider">
-      <section class="products">
-        <h2>Review & Place your Order</h2>
+      <h2>Review & Place your Order</h2>
+      <section id="order-summary" class=""></section>
+      <section class="purchase">
+        <form method="get" action="thankyou.html">
+          <div class="purchase" id="nameplate">
+            <h3>Order Info</h3>
+            <h4>Cutomer Details</h4>
+            <p>Leave Empty if same as Billing Info</p>
+            <label for="first-name"
+              >First Name:
+              <input
+                type="text"
+                name="cust-first-name"
+                placeholder="John"
+                id="first-name"
+                autocomplete="given-name"
+                title="First, or given, name of the item recipiant." /></label
+            ><br />
+            <label for="last-name"
+              >Last Name:
+              <input
+                type="text"
+                name="cust-last-name"
+                placeholder="Smith"
+                id="last-name"
+                autocomplete="family-name"
+                title="Last, or family, name of the item recipiant." /></label
+            ><br />
+            <h4>Billing & Delivary Address</h4>
+            <label for="first-name"
+              >*First Name:
+              <input
+                type="text"
+                name="first-name"
+                placeholder="John"
+                id="first-name"
+                autocomplete="given-name"
+                title="First, or given, name of the item recipiant."
+                required /></label
+            ><br />
+            <label for="last-name"
+              >*Last Name:
+              <input
+                type="text"
+                name="last-name"
+                placeholder="Smith"
+                id="last-name"
+                autocomplete="family-name"
+                title="Last, or family, name of the item recipiant."
+                required /></label
+            ><br />
+            <label for="street-add"
+              >*Street Address:
+              <input
+                type="text"
+                name="street-add"
+                placeholder="123 Oak st"
+                id="street-add"
+                autocomplete="address-level1"
+                title="Name of the Street Address for delivary."
+                required /></label
+            ><br />
+            <label for="city-add"
+              >*City:
+              <input
+                type="text"
+                name="city-add"
+                placeholder="Miami"
+                id="city-add"
+                autocomplete="address-level2"
+                title="Name of the city for delivary."
+                required /></label
+            ><br />
+            <label for="state-add"
+              >*State:
+              <input
+                type="text"
+                name="state-add"
+                placeholder="Missouri"
+                id="state-add"
+                autocomplete="address-level3"
+                title="Name of the State for delivary."
+                required /></label
+            ><br />
+            <label for="zip-add"
+              >*Zipcode:
+              <input
+                type="number"
+                name="zip-add"
+                placeholder="12345 or 12345-6789"
+                id="zip-add"
+                autocomplete="postal-code"
+                title="Zipcode for delivary."
+                pattern="\d{5}(-\d{4})?"
+                required /></label
+            ><br />
+            <h4>Payment</h4>
+            <label for="first-name"
+              >*First Name:
+              <input
+                type="text"
+                name="first-name"
+                placeholder="John"
+                id="first-name"
+                autocomplete="given-name"
+                title="First, or given, name of the item recipiant."
+                required /></label
+            ><br />
+            <label for="last-name"
+              >*Last Name:
+              <input
+                type="text"
+                name="last-name"
+                placeholder="Smith"
+                id="last-name"
+                autocomplete="family-name"
+                title="Last, or family, name of the item recipiant."
+                required /></label
+            ><br />
+            <label for="credit-card"
+              >*Credit Card:
+              <input
+                type="text"
+                autocomplete="cc-number"
+                pattern="\d{13,16}"
+                placeholder="1234 5678 9012 3456"
+                title="Credit Card Number"
+                id="credit-card"
+                required /></label
+            ><br />
+            <div id="cc-info">
+              <select
+                name="exp-month"
+                autocomplete="cc-exp-month"
+                title="Credit Card Expiration Two-Digit Month"
+                required
+              >
+                <option value="">Month</option>
+                <option value="01">01</option>
+                <option value="02">02</option>
+                <option value="03">03</option>
+                <option value="04">04</option>
+                <option value="05">05</option>
+                <option value="06">06</option>
+                <option value="07">07</option>
+                <option value="08">08</option>
+                <option value="09">09</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+              </select>
+              <select
+                name="exp-year"
+                autocomplete="cc-exp-year"
+                title="Credit Card Expiration Two-Digit Year"
+                required
+              >
+                <option value="">Year</option>
+                <option value="25">25</option>
+                <option value="26">26</option>
+                <option value="26">27</option>
+                <option value="26">28</option>
+                <option value="26">29</option>
+                <option value="26">30</option>
+                <option value="26">31</option>
+                <option value="26">32</option>
+                <option value="26">33</option>
+                <option value="26">34</option>
+                <option value="35">35</option>
+              </select>
+              <input
+                type="text"
+                name="cvc"
+                autocomplete="cc-csc"
+                pattern="\d{3,4}"
+                maxlength="4"
+                placeholder="123"
+                title="CVC for Credit Card"
+                required
+              />
+            </div>
+            <input type="hidden" name="submittedDate" value="" />
+          </div>
+          <br />
+          <div id="submit-div">
+            <label id="submit"
+              ><input
+                type="submit"
+                name="info-submit"
+                value="Buy Now"
+                class="submit-button"
+            /></label>
+          </div>
+        </form>
+        <br />
+        <br />
+        <section class="divider"></section>
+        <section class="cart-footer divider">
+          <div>
+            <h3 class="cart-total" id="sub-tot">
+              Sub-Total: $<span id="sub-value"></span>
+            </h3>
+            <h3 class="cart-total" id="tax-tot">
+              Taxes: $<span id="tax-value"></span>
+            </h3>
+            <h3 class="cart-total" id="ship-tot">
+              Shipping Estimate: $<span id="ship-value"></span>
+            </h3>
+            <h3 class="cart-final" id="fin-tot">
+              Order Total: $<span id="fin-value"></span>
+            </h3>
+          </div>
+        </section>
       </section>
     </main>
 
-    <footer>&copy;NOT a real business</footer>
-    
+    <footer id="main-foot">&copy;NOT a real business</footer>
   </body>
 </html>

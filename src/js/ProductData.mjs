@@ -1,23 +1,37 @@
+const baseURL = import.meta.env.VITE_SERVER_URL;
+
 function convertToJson(res) {
-  if (res.ok) {
-    return res.json();
-  } else {
-    throw new Error('Bad Response');
-  }
+  if (res.ok) return res.json();
+  throw new Error('Bad Response');
 }
 
 export default class ProductData {
   constructor(category) {
     this.category = category;
-    this.path = `../json/${this.category}.json`;
   }
-  getData() {
-    return fetch(this.path)
-      .then(convertToJson)
-      .then((data) => data);
+
+  async getData(category = this.category) {
+    if (!category || category === 'null' || category === 'undefined') {
+      category = null;
+    }
+    const categoriesToFetch = category
+      ? Array.isArray(category)
+        ? category
+        : [category]
+      : ['backpacks', 'sleeping-bags', 'tents', 'hammocks'];
+    const results = [];
+
+    // fetch each category sequentially
+    for (const cat of categoriesToFetch) {
+      const response = await fetch(`${baseURL}products/search/${cat}`);
+      const data = await convertToJson(response);
+      results.push(...data.Result);
+    }
+    return results;
   }
+
   async findProductById(id) {
     const products = await this.getData();
-    return products.find((item) => item.Id === id);
+    return products.find(item => item.Id === id);
   }
 }
