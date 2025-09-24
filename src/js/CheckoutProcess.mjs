@@ -1,5 +1,6 @@
-import { getLocalStorage } from './utils.mjs';
+import { getLocalStorage, loadHeaderFooter } from './utils.mjs';
 
+loadHeaderFooter();
 // id - price - name - quantity of each item in the cart
 
 //Pulling Totals from Cart instead of Local Storage

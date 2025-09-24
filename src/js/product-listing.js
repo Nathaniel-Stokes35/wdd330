@@ -1,6 +1,8 @@
 import ProductData from './ProductData.mjs';
 import ProductList from './ProductList.mjs';
-import { updateCartBadge, getParam } from './utils.mjs';
+import { updateCartBadge, getParam, loadHeaderFooter } from './utils.mjs';
+
+loadHeaderFooter();
 
 const category = getParam('category');
 const query = getParam('query');
