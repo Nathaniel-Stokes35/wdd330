@@ -143,7 +143,7 @@ function checkout(event) {
   order.subTotal = subTotal.toFixed(2);
   order.tax = (subTotal * 0.06).toFixed(2);
   order.shipping = numItems * 2 + 8;
-  order.orderTotal = Number(order.subTotal) + Number(order.tax) + Number(order.shipping);
+  order.orderTotal = String(Number(order.subTotal) + Number(order.tax) + Number(order.shipping));
   order.items = packageItems(cart);
 
   console.log(order);
