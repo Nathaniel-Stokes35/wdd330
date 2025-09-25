@@ -1,4 +1,4 @@
-import { loadHeaderFooter } from "./utils.mjs";
+import { loadHeaderFooter } from './utils.mjs';
 import { displayTotals } from './CheckoutProcess.mjs';
 
 loadHeaderFooter();
