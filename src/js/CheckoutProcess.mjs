@@ -1,6 +1,35 @@
+import ProductData from './ExternalServices.mjs';
 import { getLocalStorage, loadHeaderFooter } from './utils.mjs';
 
 loadHeaderFooter();
+const services = new ProductData();
+
+function formDataToJSON(formElement) {
+  const formData = new FormData(formElement);
+  const convertedJSON = {};
+  let exMonth = "";
+  let exYear = "";
+
+  formData.forEach((value, key) => {
+    if (key === "exp-month") {
+      exMonth = value;
+      return;
+    }
+    if (key === "exp-year") {
+      exYear = value;
+      return;
+    }
+    convertedJSON[key] = value;
+  });
+
+  // Only add expiration if we have both parts
+  if (exMonth && exYear) {
+    convertedJSON["expiration"] = `${exMonth}/${exYear}`;
+  }
+
+  return convertedJSON;
+}
+
 // id - price - name - quantity of each item in the cart
 
 //Pulling Totals from Cart instead of Local Storage
@@ -15,6 +44,18 @@ const subValue = document.getElementById('sub-value');
 const taxValue = document.getElementById('tax-value');
 const shipValue = document.getElementById('ship-value');
 const finValue = document.getElementById('fin-value');
+
+function packageItems(items) {
+  const simplifiedItems = items.map((item) => {
+    return {
+      id: item.Id,
+      price: item.FinalPrice,
+      name: item.Name,
+      quantity: item.quantity,
+    };
+  });
+  return simplifiedItems;
+}
 
 export function displaySub() {
   subValue.textContent = subTotal.toFixed(2);
@@ -90,3 +131,30 @@ function coercePrice(value) {
   }
   return 0;
 }
+
+function checkout(event) {
+  event.preventDefault(); // prevent form reload
+  console.log('in the checkout function');
+
+  const formElement = document.forms['checkout'];
+  const order = formDataToJSON(formElement);
+
+  order.orderDate = new Date().toISOString();
+  order.subTotal = subTotal.toFixed(2);
+  order.tax = (subTotal * 0.06).toFixed(2);
+  order.shipping = numItems * 2 + 8;
+  order.orderTotal = order.subTotal + order.tax + order.shipping;
+  order.items = packageItems(cart);
+
+  console.log(order);
+
+  try {
+    const response = services.checkout(order);
+    console.log(response);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+const formElement = document.forms['checkout'];
+formElement.addEventListener('submit', checkout);
