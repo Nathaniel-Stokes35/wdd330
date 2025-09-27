@@ -94,3 +94,12 @@ export function updateCartBadge() {
   if (totalCount > 0) badge.classList.remove('hide');
   else badge.classList.add('hide');
 }
+
+export function bounceCartIcon() {
+  const cartIcon = document.querySelector('.cart');
+  if (!cartIcon) return;
+
+  cartIcon.classList.remove('cart-bounce'); 
+  void cartIcon.offsetWidth; // force reflow so animation restarts
+  cartIcon.classList.add('cart-bounce');
+}

@@ -1,4 +1,4 @@
-import { getLocalStorage, setLocalStorage, updateCartBadge } from './utils.mjs';
+import { getLocalStorage, setLocalStorage, updateCartBadge, bounceCartIcon } from './utils.mjs';
 
 export default class ProductDetails {
     constructor(productId, dataSource) {
@@ -46,6 +46,7 @@ export default class ProductDetails {
           alert(`${this.product.Name} has been added to your cart.`);
           setLocalStorage('so-cart', cart);
           updateCartBadge();
+          bounceCartIcon();
       }
 
     renderProductDetails() {
