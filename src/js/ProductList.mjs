@@ -17,6 +17,7 @@ function productCardTemplate(product) {
   
     return `<li class="product-card">
       <a href="${href}">
+        <p class="product-card__price">${price}</p>
         <img 
           src="${product.Images.PrimaryMedium}" 
           srcset="
@@ -27,7 +28,6 @@ function productCardTemplate(product) {
           alt="Image of ${name}">
         <h2 class="card__brand">${brand}</h2>
         <h3 class="card__name">${name}</h3>
-        <p class="product-card__price">${price}</p>
       </a>
       <button class="quick-view" data-id=${product.Id}>Quick View</button>
     </li>`;
