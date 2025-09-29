@@ -151,10 +151,10 @@ function coercePrice(value) {
 async function checkout(event) {
   event.preventDefault(); // prevent form reload
   console.log('in the checkout function');
-  if (error) { return; }
 
   const formElement = document.forms['checkout'];
   const order = formDataToJSON(formElement);
+  if (error) { return; }
 
   order.orderDate = new Date().toISOString();
   order.subTotal = subTotal.toFixed(2);
