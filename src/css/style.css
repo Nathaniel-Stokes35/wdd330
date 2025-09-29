@@ -273,7 +273,7 @@ button {
 .quick-view-modal {
   position: fixed;
   top: 25%;
-  left: 15%;
+  left: 40%;
   width: 70%;
   z-index: 10;
   background: #fff;
@@ -483,6 +483,13 @@ button {
   display: inline-block;
 }
 
+.modal-content,
+.modal-body,
+.quick-view-modal {
+  max-width: 500px;
+  align-items: center;
+}
+
 .discount-flag {
   /*color: #e53935; /* red */
   /*font-weight: 700;
@@ -639,8 +646,6 @@ footer {
   margin: auto;
   padding: 20px 30px;
   border: 1px solid #888;
-  width: 90%;
-  max-width: 500px;
   border-radius: 8px;
   box-shadow:
     0 4px 8px 0 rgba(0, 0, 0, 0.2),

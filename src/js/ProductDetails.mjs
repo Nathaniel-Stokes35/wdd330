@@ -216,8 +216,8 @@ export function renderProductDetailsHTML(product) {
         <h3>${product.NameWithoutBrand ?? product.Name}</h3>
         <p class="price-final">Price: ${money(finalPrice)}</p>
         <p class="description">${product.DescriptionHtmlSimple ?? ''}</p>
-        </a>
-        <button id="addToCartModal" data-id="${product.Id}">Add to Cart</button>
-      </div>
+      </a>
+      <button id="addToCartModal" data-id="${product.Id}">Add to Cart</button>
+    </div>
   `;
 }
