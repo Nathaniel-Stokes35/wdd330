@@ -13,19 +13,17 @@ function formDataToJSON(formElement) {
   let exYear = '';
   let creditCard = '';
   const today = new Date();
-  let month = today.getMonth() + 1; 
-  let year = today.getFullYear() % 100; 
+  let month = today.getMonth() + 1;
+  let year = today.getFullYear() % 100;
   
   month = month < 10 ? '0' + month : month;
 
   formData.forEach((value, key) => {
     if (key === 'exp-month') {
-      if (value < month) {alertMessage('Invalid Expiration Date'); error=true; return;}
       exMonth = value;
       return;
     }
     if (key === 'exp-year') {
-      if (value < year) {alertMessage('Invalid Expiration Date'); error=true; return;}
       exYear = value;
       return;
     }
@@ -40,7 +38,18 @@ function formDataToJSON(formElement) {
   if (exMonth && exYear) {
     convertedJSON["expiration"] = `${exMonth}/${exYear}`;
   }
-
+  console.log('ExYear: ' + exYear);
+  console.log('ExMonth: ' + exMonth);
+  console.log('Current Year: ' + year);
+  console.log('Current Month: ' + month);
+  const expired = (Number(exYear) < Number(year)) || (Number(exYear) === Number(year) && Number(exMonth) < Number(month));
+  console.log(expired);
+  if (expired) {
+    alertMessage('Invalid Expiration Date'); 
+    error=true; 
+    return;
+  }  
+  console.log('made it past if statements in formDataToJSON')
   convertedJSON["cardNumber"] = creditCard; 
 
   return convertedJSON;
