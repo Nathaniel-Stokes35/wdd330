@@ -16,6 +16,7 @@ function productCardTemplate(product) {
         : `$${product?.FinalPrice ?? '0.00'}`;
   
     return `<li class="product-card">
+      <a href="${href}">
         <img 
           src="${product.Images.PrimaryMedium}" 
           srcset="
