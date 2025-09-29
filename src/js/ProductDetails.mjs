@@ -1,11 +1,18 @@
-import { getLocalStorage, setLocalStorage, updateCartBadge } from './utils.mjs';
+import { getLocalStorage, setLocalStorage, updateCartBadge, bounceCartIcon, getParam } from './utils.mjs';
 
 export default class ProductDetails {
-    constructor(productId, dataSource) {
-        this.productId = productId;
-        this.product = {};
-        this.dataSource = dataSource;
+  constructor(productOrId, dataSource) {
+    this.dataSource = dataSource;
+    
+    if (typeof productOrId === 'object') {
+      // already have product data
+      this.product = productOrId;
+      this.productId = productOrId.Id;
+    } else {
+      this.productId = productOrId;
+      this.product = null;
     }
+  }
     async init() {
         this.product = await this.dataSource.findProductById(this.productId);
         this.renderProductDetails();
@@ -15,7 +22,8 @@ export default class ProductDetails {
         //ensure badge correct on load
         updateCartBadge();
     }
-    addProductToCart() {
+    async addProductToCart() {
+        this.product = await this.dataSource.findProductById(this.productId);
         const cart = getLocalStorage('so-cart') || [];
         const productId = this.product.Id
         const existing = cart.find(item => item.Id === productId);
@@ -46,6 +54,7 @@ export default class ProductDetails {
           alert(`${this.product.Name} has been added to your cart.`);
           setLocalStorage('so-cart', cart);
           updateCartBadge();
+          bounceCartIcon();
       }
 
     renderProductDetails() {
@@ -184,4 +193,31 @@ function productDetailsTemplate(product) {
     //document.getElementById('productColor').textContent = product.Colors[0].ColorName; 
     // document.getElementById('productDesc').innerHTML = product.DescriptionHtmlSimple; 
     //document.getElementById('addToCart').dataset.id = product.Id; 
+}
+
+export function renderProductDetailsHTML(product) {
+  const { finalPrice, comparePrice, discountPct, saveAmount } = computeDiscount(product);
+
+  function money(n) { return `$${Number(n).toFixed(2)}`; }
+  return `
+    <a href="../product_pages/index.html?category=${getParam('category')}&id=${encodeURIComponent(product.Id)}">
+      <div class="product-modal">
+        <div id="discountFlag" class="discount-flag">${discountPct}% off</div>
+        <img 
+          src="${product.Images.PrimaryMedium}" 
+          srcset="
+            ${product.Images.PrimarySmall} 80w,
+            ${product.Images.PrimaryMedium} 160w
+          "
+          sizes="(max-width: 600px) 50vw, 160px"
+          alt="${product.NameWithoutBrand}"
+        >
+        <h2>${product.Brand?.Name ?? ''}</h2>
+        <h3>${product.NameWithoutBrand ?? product.Name}</h3>
+        <p class="price-final">Price: ${money(finalPrice)}</p>
+        <p class="description">${product.DescriptionHtmlSimple ?? ''}</p>
+        </a>
+        <button id="addToCartModal" data-id="${product.Id}">Add to Cart</button>
+      </div>
+  `;
 }

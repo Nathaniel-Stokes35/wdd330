@@ -1,3 +1,4 @@
+import ProductData from "./ProductData.mjs";
 // wrapper for querySelector...returns matching element
 export function qs(selector, parent = document) {
   return parent.querySelector(selector);
@@ -93,4 +94,13 @@ export function updateCartBadge() {
   badge.textContent = totalCount;
   if (totalCount > 0) badge.classList.remove('hide');
   else badge.classList.add('hide');
+}
+
+export function bounceCartIcon() {
+  const cartIcon = document.querySelector('.cart');
+  if (!cartIcon) return;
+
+  cartIcon.classList.remove('cart-bounce'); 
+  void cartIcon.offsetWidth; // force reflow so animation restarts
+  cartIcon.classList.add('cart-bounce');
 }

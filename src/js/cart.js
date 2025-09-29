@@ -3,6 +3,7 @@ import {
   setLocalStorage,
   updateCartBadge,
   loadHeaderFooter,
+  bounceCartIcon,
 } from './utils.mjs';
 import ShoppingCart from './ShoppingCart.mjs';
 
@@ -322,6 +323,7 @@ function handleIncrease(productId) {
   annotateLineDiscounts(cartItems);
   updateCartFooter(cartItems);
   updateCartBadge();
+  bounceCartIcon();
 }
 
 function handleDecrease(productId) {
