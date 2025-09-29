@@ -247,11 +247,13 @@ button {
 
 /* Styles for product lists */
 .product-card {
+  position: relative;
   flex: 1 1 45%;
   margin: 0.25em;
   padding: 0.5em;
   border: 1px solid var(--light-grey);
   max-width: 250px;
+  min-height: 420px;
 }
 
 .product-card h2,
@@ -295,6 +297,11 @@ button {
   float: right;
   cursor: pointer;
   font-weight: bold;
+}
+
+.quick-view {
+  position: absolute;
+  bottom: 5%;
 }
 
 @keyframes fadeIn {
