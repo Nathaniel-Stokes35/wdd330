@@ -253,7 +253,7 @@ button {
   padding: 0.5em;
   border: 1px solid var(--light-grey);
   max-width: 250px;
-  min-height: 375px;
+  min-height: 400px;
 }
 
 .product-card h2,
