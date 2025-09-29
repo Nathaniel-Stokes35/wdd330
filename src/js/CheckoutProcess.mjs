@@ -1,22 +1,29 @@
 import ProductData from './ExternalServices.mjs';
-import { getLocalStorage, loadHeaderFooter } from './utils.mjs';
+import { alertMessage, getLocalStorage, loadHeaderFooter, setLocalStorage, removeAllAlerts } from './utils.mjs';
 
 loadHeaderFooter();
 const services = new ProductData();
+let error = false; 
 
 function formDataToJSON(formElement) {
+  error = false;
   const formData = new FormData(formElement);
   const convertedJSON = {};
-  let exMonth = "";
-  let exYear = "";
+  let exMonth = '';
+  let exYear = '';
+  let creditCard = '';
 
   formData.forEach((value, key) => {
-    if (key === "exp-month") {
+    if (key === 'exp-month') {
       exMonth = value;
       return;
     }
-    if (key === "exp-year") {
+    if (key === 'exp-year') {
       exYear = value;
+      return;
+    }
+    if (key === 'cardNumber') {
+      creditCard = String(value).replace(/\s+/g, '');
       return;
     }
     convertedJSON[key] = value;
@@ -26,6 +33,8 @@ function formDataToJSON(formElement) {
   if (exMonth && exYear) {
     convertedJSON["expiration"] = `${exMonth}/${exYear}`;
   }
+
+  convertedJSON["cardNumber"] = creditCard; 
 
   return convertedJSON;
 }
@@ -132,12 +141,13 @@ function coercePrice(value) {
   return 0;
 }
 
-function checkout(event) {
+async function checkout(event) {
   event.preventDefault(); // prevent form reload
   console.log('in the checkout function');
 
   const formElement = document.forms['checkout'];
   const order = formDataToJSON(formElement);
+  if (error) { return; }
 
   order.orderDate = new Date().toISOString();
   order.subTotal = subTotal.toFixed(2);
@@ -149,11 +159,21 @@ function checkout(event) {
   console.log(order);
 
   try {
-    const response = services.checkout(order);
-    console.log(response);
-  } catch (err) {
-    console.error(err);
-  }
+      const res = await services.checkout(order);
+      console.log(res);
+      setLocalStorage("so-cart", []);
+      location.assign("./success.html");
+    } catch (err) {
+      // get rid of any preexisting alerts.
+      removeAllAlerts();
+      for (let message in err.message) {
+        alertMessage(err.message[message]);
+      }
+
+      console.log(err);
+    }
+
+  //window.location.href = "../success/index.html";
 }
 
 const formElement = document.forms['checkout'];
