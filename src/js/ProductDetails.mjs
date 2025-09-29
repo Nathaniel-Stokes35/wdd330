@@ -202,6 +202,7 @@ export function renderProductDetailsHTML(product) {
   return `
     <a href="../product_pages/index.html?category=${getParam('category')}&id=${encodeURIComponent(product.Id)}">
       <div class="product-modal">
+        <div id="discountFlag" class="discount-flag">${discountPct}% off</div>
         <img 
           src="${product.Images.PrimaryMedium}" 
           srcset="
@@ -214,7 +215,6 @@ export function renderProductDetailsHTML(product) {
         <h2>${product.Brand?.Name ?? ''}</h2>
         <h3>${product.NameWithoutBrand ?? product.Name}</h3>
         <p class="price-final">Price: ${money(finalPrice)}</p>
-        <p class="price-compare">Was: ${money(comparePrice)} (${discountPct}% off, save ${money(saveAmount)})</p>
         <p class="description">${product.DescriptionHtmlSimple ?? ''}</p>
         <button id="addToCartModal" data-id="${product.Id}">Add to Cart</button>
       </div>
