@@ -1,5 +1,5 @@
 import { renderListWithTemplate, getParam } from './utils.mjs';
-import ProductData from './ProductData.mjs';
+import ProductData from './ExternalServices.mjs';
 import ProductDetails, { renderProductDetailsHTML } from './ProductDetails.mjs';
 
 function productCardTemplate(product) {
