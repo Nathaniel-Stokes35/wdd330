@@ -1,5 +1,5 @@
 import ProductData from './ExternalServices.mjs';
-import { alertMessage, getLocalStorage, loadHeaderFooter } from './utils.mjs';
+import { alertMessage, getLocalStorage, loadHeaderFooter, setLocalStorage, removeAllAlerts } from './utils.mjs';
 
 loadHeaderFooter();
 const services = new ProductData();
@@ -12,11 +12,6 @@ function formDataToJSON(formElement) {
   let exMonth = '';
   let exYear = '';
   let creditCard = '';
-  const today = new Date();
-  let month = today.getMonth() + 1;
-  let year = today.getFullYear() % 100;
-  
-  month = month < 10 ? '0' + month : month;
 
   formData.forEach((value, key) => {
     if (key === 'exp-month') {
@@ -38,18 +33,7 @@ function formDataToJSON(formElement) {
   if (exMonth && exYear) {
     convertedJSON["expiration"] = `${exMonth}/${exYear}`;
   }
-  console.log('ExYear: ' + exYear);
-  console.log('ExMonth: ' + exMonth);
-  console.log('Current Year: ' + year);
-  console.log('Current Month: ' + month);
-  const expired = (Number(exYear) < Number(year)) || (Number(exYear) === Number(year) && Number(exMonth) < Number(month));
-  console.log(expired);
-  if (expired) {
-    alertMessage('Invalid Expiration Date'); 
-    error=true; 
-    return;
-  }  
-  console.log('made it past if statements in formDataToJSON')
+
   convertedJSON["cardNumber"] = creditCard; 
 
   return convertedJSON;
@@ -175,14 +159,21 @@ async function checkout(event) {
   console.log(order);
 
   try {
-    const response = await services.checkout(order);
-    console.log(response);
-  } catch (err) {
-    console.error(err);
-    return;
-  }
+      const res = await services.checkout(order);
+      console.log(res);
+      setLocalStorage("so-cart", []);
+      location.assign("./success.html");
+    } catch (err) {
+      // get rid of any preexisting alerts.
+      removeAllAlerts();
+      for (let message in err.message) {
+        alertMessage(err.message[message]);
+      }
 
-  window.location.href = "../success/index.html";
+      console.log(err);
+    }
+
+  //window.location.href = "../success/index.html";
 }
 
 const formElement = document.forms['checkout'];
