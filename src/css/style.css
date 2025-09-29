@@ -272,6 +272,38 @@ button {
 
 /* Product Quick View */
 
+.alert {
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  background: var(--primary-color, #f0a868);
+  color: var(--dark-grey, #303030);
+  border: 2px solid #d08a40;
+  padding: 0.9rem 3rem 0.9rem 1rem;
+  border-radius: 2px;
+  margin: 0.5rem 0;
+  position: relative;
+  font-weight: 600;
+}
+.alert + .alert { margin-top: 0.25rem; } /* stack nicely */
+ 
+.alert-close {
+  position: absolute;
+  right: 0.75rem;
+  top: 0.45rem;
+  font-size: 1.25rem;
+  line-height: 1;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  color: inherit;
+}
+
+.success-div {
+  text-align: center;
+}
+
+.alert-text { display: inline-block; }
+
 .quick-view-modal {
   position: fixed;
   top: 25%;

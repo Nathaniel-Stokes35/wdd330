@@ -112,7 +112,7 @@ export function alertMessage(message, scroll = true) {
   // add a class to style the alert
   alert.classList.add('alert');
   // set the contents. You should have a message and an X or something the user can click on to remove
-  alert.innerHTML = `<p>${message}<button id='alert-close'>&times;</button></p>`;
+  alert.innerHTML = `<h2>${message}</h2><button id='alert-close'>&times;</button>`;
   // add a listener to the alert to see if they clicked on the X
   // if they did then remove the child
   alert.addEventListener('click', function(e) {
